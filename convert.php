@@ -6,8 +6,8 @@ use YoutubeDl\Exception\CopyrightException;
 use YoutubeDl\Exception\NotFoundException;
 use YoutubeDl\Exception\PrivateVideoException;
 
-define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp_new/ytconverter/download");
-define("DOWNLOAD_FOLDER_PUBLIC", "http://lmdm.exp-gaming.net/ucp_new/ytconverter/download/");
+define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp/ytconverter/download");
+define("DOWNLOAD_FOLDER_PUBLIC", "http://lmdm.exp-gaming.net/ucp/ytconverter/download/");
 
 if(isset($_GET["youtubelink"]))
 {
