@@ -6,20 +6,35 @@ use YoutubeDl\Exception\CopyrightException;
 use YoutubeDl\Exception\NotFoundException;
 use YoutubeDl\Exception\PrivateVideoException;
 
-define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp/ytconverter/download");
+define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp/ytconverter/download/");
 define("DOWNLOAD_FOLDER_PUBLIC", "http://lmdm.exp-gaming.net/ucp/ytconverter/download/");
 
 if(isset($_GET["youtubelink"]))
 {
 	$youtubelink = $_GET["youtubelink"];
 
-	$dl = new YoutubeDl([
-	    'extract-audio' => true,
-	    'audio-format' => 'mp3',
-	    'audio-quality' => 0, 
-	    'output' => '%(title)s.%(ext)s',
-	    'ffmpeg-location' => '/usr/local/bin/ffmpeg' //optional
-	]);
+	parse_str(parse_url($youtubelink, PHP_URL_QUERY), $queryvars);
+	$id = $queryvars["v"];
+	$file = DOWNLOAD_FOLDER.$id.".mp3";
+
+	$exists = file_exists($file);
+	if($exists)
+	{
+		$options = [
+		    'skip-download' => true
+		];
+	}
+	else
+	{
+		$options = [
+		    'extract-audio' => true,
+		    'audio-format' => 'mp3',
+		    'audio-quality' => 0, 
+		    'output' => '%(id)s.%(ext)s',
+		    'ffmpeg-location' => '/usr/local/bin/ffmpeg' //optional
+		];
+	}
+	$dl = new YoutubeDl($options);
 
 	$dl->setDownloadPath(DOWNLOAD_FOLDER);
 
@@ -27,7 +42,11 @@ if(isset($_GET["youtubelink"]))
 	try 
 	{
 		$video = $dl->download($youtubelink);
-		$file = DOWNLOAD_FOLDER_PUBLIC . $video->getFilename();
+
+		if($exists)
+			$file = DOWNLOAD_FOLDER_PUBLIC.$id.".mp3";
+		else
+			$file = DOWNLOAD_FOLDER_PUBLIC . $video->getFilename();
 
 		echo "{ \"error\": false, \"title\": \"{$video->getTitle()}\", \"duration\": {$video->getDuration()}, \"file\": \"$file\" }";
 	} 
@@ -47,7 +66,6 @@ if(isset($_GET["youtubelink"]))
 	{
 	    echo "{ \"error\" : true, \"type\": \"Exception\" }";
 	}
-
 }
 
 
