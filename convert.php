@@ -9,7 +9,9 @@ use YoutubeDl\Exception\PrivateVideoException;
 define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp/ytconverter/download/");
 define("DOWNLOAD_FOLDER_PUBLIC", "http://lmdm.exp-gaming.net/ucp/ytconverter/download/");
 
-if(isset($_GET["youtubelink"]))
+header("Content-Type: application/json");
+
+if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 {
 	$youtubelink = $_GET["youtubelink"];
 
@@ -38,7 +40,6 @@ if(isset($_GET["youtubelink"]))
 
 	$dl->setDownloadPath(DOWNLOAD_FOLDER);
 
-	header("Content-Type: application/json");
 	try 
 	{
 		$video = $dl->download($youtubelink);
@@ -67,6 +68,13 @@ if(isset($_GET["youtubelink"]))
 	    echo "{ \"error\" : true, \"type\": \"Exception\" }";
 	}
 }
+else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
+{
+	$id = $_GET["delete"];
 
-
+	if(unlink(DOWNLOAD_FOLDER.$id.".mp3"))
+		echo "{ \"error\" : false, \"message\": \"File removed\" }";
+	else
+		echo "{ \"error\" : true, \"type\": \"FileNotFound\" }";
+}
 ?>
