@@ -6,8 +6,8 @@ use YoutubeDl\Exception\CopyrightException;
 use YoutubeDl\Exception\NotFoundException;
 use YoutubeDl\Exception\PrivateVideoException;
 
-define("DOWNLOAD_FOLDER", "/var/www/html/lmdm/ucp/ytconverter/download/");
-define("DOWNLOAD_FOLDER_PUBLIC", "http://lmdm.exp-gaming.net/ucp/ytconverter/download/");
+define("DOWNLOAD_FOLDER", "/var/www/html/michael/ytconverter/download/"); //Be sure the chmod the download folder
+define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
 
 header("Content-Type: application/json");
 

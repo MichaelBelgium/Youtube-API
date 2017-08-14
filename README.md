@@ -67,6 +67,6 @@ Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to 
 	"error": false,
 	"title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
 	"duration": 210,
-	"file": "http://lmdm.exp-gaming.net/ucp_new/ytconverter/download/Devin Wild & Sub Zero Project - Meltdown (Official Videoclip).mp3"
+	"file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3"
 }
 ```
