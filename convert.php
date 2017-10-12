@@ -47,7 +47,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 		if($exists)
 			$file = DOWNLOAD_FOLDER_PUBLIC.$id.".mp3";
 		else
-			$file = DOWNLOAD_FOLDER_PUBLIC . $video->getFilename();
+			$file = DOWNLOAD_FOLDER_PUBLIC.$video->getFilename();
 
 		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file));
 	} 
@@ -66,5 +66,5 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
 		echo json_encode(array("error" => true, "message" => "File not found"));
 }
 else
-	echo json_encode(array("error" => true, "messsage" => "Invalid request"));
+	echo json_encode(array("error" => true, "message" => "Invalid request"));
 ?>
