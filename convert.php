@@ -23,17 +23,17 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 	if($exists)
 	{
 		$options = [
-		    'skip-download' => true
+			'skip-download' => true
 		];
 	}
 	else
 	{
 		$options = [
-		    'extract-audio' => true,
-		    'audio-format' => 'mp3',
-		    'audio-quality' => 0, 
-		    'output' => '%(id)s.%(ext)s',
-		    'ffmpeg-location' => '/usr/local/bin/ffmpeg' //optional
+			'extract-audio' => true,
+			'audio-format' => 'mp3',
+			'audio-quality' => 0, 
+			'output' => '%(id)s.%(ext)s',
+			'ffmpeg-location' => '/usr/local/bin/ffmpeg' //optional
 		];
 	}
 	$dl = new YoutubeDl($options);
@@ -49,23 +49,11 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 		else
 			$file = DOWNLOAD_FOLDER_PUBLIC . $video->getFilename();
 
-		echo "{ \"error\": false, \"title\": \"{$video->getTitle()}\", \"duration\": {$video->getDuration()}, \"file\": \"$file\" }";
-	} 
-	catch (NotFoundException $e) 
-	{
-	   echo "{ \"error\" : true, \"type\": \"NotFoundException\" } ";
-	} 
-	catch (PrivateVideoException $e) 
-	{
-	    echo "{ \"error\" : true, \"type\": \"PrivateVideoException\" } ";
-	} 
-	catch (CopyrightException $e) 
-	{
-	    echo "{ \"error\" : true, \"type\": \"CopyrightException\" } ";
+		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file));
 	} 
 	catch (Exception $e) 
 	{
-	    echo "{ \"error\" : true, \"type\": \"Exception\" }";
+		echo json_encode(array("error" => true, "message" => $e->getMessage()));
 	}
 }
 else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
@@ -73,8 +61,10 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
 	$id = $_GET["delete"];
 
 	if(unlink(DOWNLOAD_FOLDER.$id.".mp3"))
-		echo "{ \"error\" : false, \"message\": \"File removed\" }";
+		echo json_encode(array("error" => false, "message" => "File removed"));
 	else
-		echo "{ \"error\" : true, \"type\": \"FileNotFound\" }";
+		echo json_encode(array("error" => true, "message" => "File not found"));
 }
+else
+	echo json_encode(array("error" => true, "messsage" => "Invalid request"));
 ?>
