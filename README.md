@@ -1,6 +1,23 @@
 # Youtube-to-mp3-API
 
-By using these you are able to make your own Youtube-to-MP3 API, mostly thanks to the requirement libraries.
+With these two php files you are able to create your own Youtube to MP3 API with ability to search also.
+
+# Available HTTP requests
+
+* `GET - convert.php`
+
+| Parameter		| Required	| Type | Description |
+|-----------|----------|-------------|-------------|
+| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download |
+| delete | No | string | The youtubeid of which you want it to be deleted from storage on the server |
+
+* `GET - search.php`
+
+| Parameter		| Required	| Type | Description |
+|-----------|----------|-------------|-------------|
+| q	| Yes	| string | The query term to search for video's |
+| max_results | No | integer | The youtubeid of which you want it to be deleted from storage on the server |
+
 
 # Requirements
 
