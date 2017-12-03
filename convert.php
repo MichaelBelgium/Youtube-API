@@ -1,10 +1,7 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use YoutubeDl\YoutubeDl;
-use YoutubeDl\Exception\CopyrightException;
-use YoutubeDl\Exception\NotFoundException;
-use YoutubeDl\Exception\PrivateVideoException;
 
 define("DOWNLOAD_FOLDER", "/var/www/html/michael/ytconverter/download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
