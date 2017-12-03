@@ -9,7 +9,7 @@ $result = array("error" => false, "message" => null, "results" => array());
 
 header("Content-Type: application/json");
 
-if (isset($_GET["q"]))
+if (isset($_GET["q"]) && !empty($_GET["q"]))
 {
     $max_results = MAX_RESULTS;
 
@@ -46,6 +46,11 @@ if (isset($_GET["q"]))
         $result["error"] = true;
         $result["message"] = $exception->getMessage();
     }
-
-    echo json_encode($result);
 }
+else
+{
+    $result["error"] = true;
+    $result["message"] = "Invalid request";
+}
+
+echo json_encode($result);
