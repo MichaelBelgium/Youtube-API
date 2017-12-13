@@ -16,7 +16,7 @@ With these two php files you are able to create your own Youtube to MP3 API with
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
 | q	| Yes	| string | The query term to search for video's |
-| max_results | No | integer | The youtubeid of which you want it to be deleted from storage on the server |
+| max_results | No | integer | The max results of search results u want to get |
 
 
 # Requirements
