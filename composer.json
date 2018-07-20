@@ -1,0 +1,14 @@
+{
+    "name": "michaelbelgium/youtube-to-mp3",
+    "description": "Convert and search youtube video's via your own API",
+    "require": {
+        "norkunas/youtube-dl-php": "^1.0",
+        "google/apiclient": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Michael V.",
+            "email": "michael@michaelbelgium.me"
+        }
+    ]
+}

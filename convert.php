@@ -30,7 +30,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			'audio-format' => 'mp3',
 			'audio-quality' => 0, 
 			'output' => '%(id)s.%(ext)s',
-			'ffmpeg-location' => '/usr/local/bin/ffmpeg' //optional
+			//'ffmpeg-location' => '/usr/local/bin/ffmpeg'
 		];
 	}
 	$dl = new YoutubeDl($options);
@@ -48,7 +48,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file));
 	} 
-	catch (Exception $e) 
+	catch (Exception $e)
 	{
 		echo json_encode(array("error" => true, "message" => $e->getMessage()));
 	}

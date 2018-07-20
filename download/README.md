@@ -1,0 +1,1 @@
+In this folder the downloadable mp3's will be placed. Make sure that this folder is writable.
