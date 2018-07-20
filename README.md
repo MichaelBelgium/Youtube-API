@@ -19,14 +19,11 @@ With these two php files you are able to create your own Youtube to MP3 API with
 | max_results | No | integer | The max results of search results u want to get |
 
 
-# Requirements
+# Software requirements
 
 * [youtube-dl](https://rg3.github.io/youtube-dl/)
 * [ffmpeg](https://www.ffmpeg.org/)
 * [libmp3lame](http://lame.sourceforge.net/) 
-
-* [youtube-dl-php](https://github.com/norkunas/youtube-dl-php)
-* [google api client](https://github.com/google/google-api-php-client)
 
 # General installation
 
@@ -34,17 +31,15 @@ First we install the dependencies on the server, then website.
 
 ## VPS
 
-* Install libmp3lame (see below)
-* Install ffmpeg (see below)
-* install youtube-dl
+* Install ffmpeg (+ libmp3lame - see below)
+* [install youtube-dl](https://rg3.github.io/youtube-dl/download.html)
 
 ## Website
 
 * Get a google developer api key
-* Go to a directory to run composer into (this will be the directory where you'll access the API via browser)
-* Install youtube-dl-php (or just do `composer require norkunas/youtube-dl-php`)
-* Install the google api client (or just do `composer require google/apiclient:^2.0`)
-* Put the `convert.php` and `search.php` in the same directory (the files in this repo is an example. These are the files I use on my VPS.)
+* Go to your webserver files to run composer into
+* Run `composer create-project michaelbelgium/youtube-to-mp3 [directoryname]` - where `directoryname` is .. a directory where people can access the API from.
+* Edit defines:
 
 In `search.php` you can define these variables:
 ```PHP
@@ -54,7 +49,7 @@ define("API_KEY", "");
 
 # How I installed ffmpeg (compiling/building and installing)
 
-If you have ffmpeg in `yum` or `apt-get` or any kind this is probably not needed. I had to do this manually as I'm using Centos 6.x 
+If you have ffmpeg in `yum` or `apt-get` this is **not needed**. I had to do this manually as I'm using Centos 6.x 
 
 ## libmp3lame
 
@@ -89,6 +84,8 @@ Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to 
 # Example output
 
 ## Download/convert
+`http://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
+
 ```JSON
 {
 	"error": false,

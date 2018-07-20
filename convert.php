@@ -3,7 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use YoutubeDl\YoutubeDl;
 
-define("DOWNLOAD_FOLDER", "/var/www/html/michael/ytconverter/download/"); //Be sure the chmod the download folder
+define("DOWNLOAD_FOLDER", dirname(__FILE__)."/download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
 
 header("Content-Type: application/json");
