@@ -2,7 +2,7 @@
 
 With these two php files you are able to create your own Youtube to MP3 API with ability to search also.
 
-# Available HTTP requests
+# Possible HTTP requests
 
 * `GET - convert.php`
 
@@ -18,12 +18,35 @@ With these two php files you are able to create your own Youtube to MP3 API with
 | q	| Yes	| string | The query term to search for video's |
 | max_results | No | integer | The max results of search results u want to get |
 
+# Possible HTTP responses
+
+* `JSON - convert.php`
+
+| Parameter		|Type | Description |
+|-----------|-------------|-------------|
+| error	| boolean	| Whether or not an error occured |
+| message	| string	| A simple message or the error message |
+
+
+| Parameter		|Type | Description |
+|-----------|-------------|-------------|
+| error	| boolean	| false |
+| title	| string	| The title of the video that got converted |
+| duration	| integer	| The duration of the video that got converted (in seconds) |
+| file	| string	| The streamlink or downloadable mp3 file |
+
+* `JSON - search.php`
+
+| Parameter		|Type | Description |
+|-----------|-------------|-------------|
+| error	| boolean	| Whether or not an error occured |
+| message	| string	| An error message |
+| results	| array	| An array with MAX_RESULTS entries. Each entry has: the video id, the channel name of the video, the video title and the full url to the video |
 
 # Software requirements
 
 * [youtube-dl](https://rg3.github.io/youtube-dl/)
-* [ffmpeg](https://www.ffmpeg.org/)
-* [libmp3lame](http://lame.sourceforge.net/) 
+* [ffmpeg](https://www.ffmpeg.org/) (+ [libmp3lame](http://lame.sourceforge.net/))
 
 # General installation
 
