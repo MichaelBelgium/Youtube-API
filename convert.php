@@ -13,25 +13,31 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 	$youtubelink = $_GET["youtubelink"];
 
 	parse_str(parse_url($youtubelink, PHP_URL_QUERY), $queryvars);
+
+	if(!array_key_exists("v", $queryvars))
+	{
+		die(json_encode(array("error" => true, "message" => "No video specified")));
+	}
+
 	$id = $queryvars["v"];
 	$file = DOWNLOAD_FOLDER.$id.".mp3";
 
 	$exists = file_exists($file);
 	if($exists)
 	{
-		$options = [
+		$options = array(
 			'skip-download' => true
-		];
+		);
 	}
 	else
 	{
-		$options = [
+		$options = array(
 			'extract-audio' => true,
 			'audio-format' => 'mp3',
 			'audio-quality' => 0, 
 			'output' => '%(id)s.%(ext)s',
 			//'ffmpeg-location' => '/usr/local/bin/ffmpeg'
-		];
+		);
 	}
 	$dl = new YoutubeDl($options);
 
@@ -47,7 +53,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			$file = DOWNLOAD_FOLDER_PUBLIC.$video->getFilename();
 
 		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file));
-	} 
+	}
 	catch (Exception $e)
 	{
 		echo json_encode(array("error" => true, "message" => $e->getMessage()));
