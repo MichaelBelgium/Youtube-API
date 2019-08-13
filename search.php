@@ -43,8 +43,9 @@ if (isset($_GET["q"]) && !empty($_GET["q"]))
     }
     catch (Exception $exception)
     {
+        $json = json_decode($exception->getMessage());
         $result["error"] = true;
-        $result["message"] = $exception->getMessage();
+        $result["message"] = $json->error->message;
     }
 }
 else
