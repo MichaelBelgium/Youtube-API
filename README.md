@@ -104,7 +104,9 @@ make install
 
 Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to specify in `convert.php`
 
-# Example output
+# Examples
+
+## [User interface for converting (index file)](http://michaelbelgium.me/ytconverter/)
 
 ## Download/convert
 `http://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
