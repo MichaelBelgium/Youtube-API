@@ -13,14 +13,13 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 {
 	$youtubelink = $_GET["youtubelink"];
 
-	parse_str(parse_url($youtubelink, PHP_URL_QUERY), $queryvars);
+	$success = preg_match('#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $youtubelink, $matches);
 
-	if(!array_key_exists("v", $queryvars))
-	{
+	if(!$success)
 		die(json_encode(array("error" => true, "message" => "No video specified")));
-	}
 
-	$id = $queryvars["v"];
+	$id = $matches[0];
+
 	$exists = file_exists(DOWNLOAD_FOLDER.$id.".mp3");
 
 	if(DOWNLOAD_MAX_LENGTH > 0 || $exists) {

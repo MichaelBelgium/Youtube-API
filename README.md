@@ -4,14 +4,25 @@ With these two php files you are able to create your own Youtube to MP3 API with
 
 # Possible HTTP requests
 
-* `GET - convert.php`
+## `GET - convert.php`
 
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
-| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download |
+| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download. |
 | delete | No | string | The youtubeid of which you want it to be deleted from storage on the server |
 
-* `GET - search.php`
+### __Possible youtubelinks__
+```
+youtube.com/v/{vidid}
+youtube.com/vi/{vidid}
+youtube.com/?v={vidid}
+youtube.com/?vi={vidid}
+youtube.com/watch?v={vidid}
+youtube.com/watch?vi={vidid}
+youtu.be/{vidid}
+```
+
+## `GET - search.php`
 
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
@@ -20,7 +31,7 @@ With these two php files you are able to create your own Youtube to MP3 API with
 
 # Possible HTTP responses
 
-* `JSON - convert.php`
+## `JSON - convert.php`
 
 | Parameter		|Type | Description |
 |-----------|-------------|-------------|
@@ -35,7 +46,7 @@ With these two php files you are able to create your own Youtube to MP3 API with
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
 
-* `JSON - search.php`
+## `JSON - search.php`
 
 | Parameter		|Type | Description |
 |-----------|-------------|-------------|
