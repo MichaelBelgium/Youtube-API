@@ -9,6 +9,7 @@ With these two php files you are able to create your own Youtube to MP3 API with
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
 | youtubelink	| Yes	| string |  The full youtubelink of the video you want to download. |
+| format | No (default = mp3) | string: mp3 or mp4 | The format to download |
 | delete | No | string | The youtubeid of which you want it to be deleted from storage on the server |
 
 ### __Possible youtubelinks__
@@ -45,6 +46,7 @@ youtu.be/{vidid}
 | title	| string	| The title of the video that got converted |
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
+| exists | boolean | If the song/video already existed on storage |
 
 ## `JSON - search.php`
 
@@ -75,10 +77,16 @@ First we install the dependencies on the server, then website.
 * Run `composer create-project michaelbelgium/youtube-to-mp3 [directoryname]` - where `directoryname` is .. a directory where people can access the API from.
 * Edit defines:
 
-In `search.php` you can define these variables:
+### `search.php`
 ```PHP
-define("MAX_RESULTS", 10);
-define("API_KEY", "");
+define("MAX_RESULTS", 10); //max search results
+define("API_KEY", ""); //google api key
+```
+
+### `convert.php`
+
+```PHP
+define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
 
 # How I installed ffmpeg (compiling/building and installing)
