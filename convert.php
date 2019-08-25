@@ -77,7 +77,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			$file = DOWNLOAD_FOLDER_PUBLIC.$video->getFilename();
 		}
 
-		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file));
+		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file, "exists" => $exists));
 	}
 	catch (Exception $e)
 	{
