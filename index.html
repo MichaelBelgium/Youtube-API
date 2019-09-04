@@ -29,7 +29,7 @@
                 <h5 class="card-title">Json response</h5>
             </div>
             <div class="card-body">
-                <code>{}</code>
+                <pre>{}</pre>
             </div>
             <div class="card-footer">
                 <table class="table table-borderless table-sm w-auto">
@@ -74,7 +74,7 @@
 
                 e.preventDefault();
                 $.get($(this).attr("action"), { youtubelink: $("#link").val() },  function(data) {
-                    $("code").text(JSON.stringify(data));
+                    $("pre").text(JSON.stringify(data, null, 4));
                     $("#frm-convert input[type=submit]").val("Convert");
 
                     if(data.error) {
