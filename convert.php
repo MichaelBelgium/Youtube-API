@@ -24,6 +24,9 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 	$exists = file_exists(DOWNLOAD_FOLDER.$matches[0].".".$format);
 
+	$localfile = DOWNLOAD_FOLDER.$id.".mp3";
+	$exists = file_exists($localfile);
+
 	if($exists || DOWNLOAD_MAX_LENGTH > 0)
 	{
 		$dl = new YoutubeDl(['skip-download' => true]);
@@ -77,7 +80,16 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			$file = DOWNLOAD_FOLDER_PUBLIC.$video->getFilename();
 		}
 
-		echo json_encode(array("error" => false, "title" => $video->getTitle(), "duration" => $video->getDuration(), "file" => $file, "exists" => $exists));
+		echo json_encode(array(
+			"error" => false,
+			"youtube_id" => $video->getId(),
+			"title" => $video->getTitle(),
+			"alt_title" => $video->getAltTitle(),
+			"duration" => $video->getDuration(),
+			"file" => $file, 
+			"file_size" => $exists ? filesize($localfile) : $video->getFilesize(),
+			"uploaded_at" => $video->getUploadDate()
+		));
 	}
 	catch (Exception $e)
 	{

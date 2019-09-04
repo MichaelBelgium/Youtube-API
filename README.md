@@ -43,10 +43,13 @@ youtu.be/{vidid}
 | Parameter		|Type | Description |
 |-----------|-------------|-------------|
 | error	| boolean	| false |
+| youtube_id | string | The youtube identifier |
 | title	| string	| The title of the video that got converted |
+| alt_title | string | A secondary title of the video |
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
-| exists | boolean | If the song/video already existed on storage |
+| file_size | integer | The number of bytes |
+| uploaded_at | object | A Date object |
 
 ## `JSON - search.php`
 
@@ -128,20 +131,28 @@ Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to 
 ## [User interface for converting (index file)](http://michaelbelgium.me/ytconverter/)
 
 ## Download/convert
-`http://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
+`https://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
 
 ```JSON
 {
-	"error": false,
-	"title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
-	"duration": 210,
-	"file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3"
+  "error": false,
+  "youtube_id": "gUJKs1m7Y8M",
+  "title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
+  "alt_title": "Meltdown",
+  "duration": 210,
+  "file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3",
+  "file_size": 6706413,
+  "uploaded_at": {
+    "date": "2016-10-13 20:59:06.000000",
+    "timezone_type": 3,
+    "timezone": "Europe/Berlin"
+  }
 }
 ```
 
 ## Search
 
-`http://michaelbelgium.me/ytconverter/search.php?q=belgium&max_results=5`
+`https://michaelbelgium.me/ytconverter/search.php?q=belgium&max_results=5`
 
 ```JSON
 {

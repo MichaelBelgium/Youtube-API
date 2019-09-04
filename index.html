@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <input type="text" name="youtubelink" class="form-control" id="link" placeholder="Youtube url" required />
                     </div>
-                    <input type="submit" class="btn btn-outline-primary" value="Convert">
+                    <button type="submit" class="btn btn-outline-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Convert</button>
                 </form>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <h5 class="card-title">Json response</h5>
             </div>
             <div class="card-body">
-                <code>{}</code>
+                <pre>{}</pre>
             </div>
             <div class="card-footer">
                 <table class="table table-borderless table-sm w-auto">
@@ -52,7 +52,14 @@
                             <td><span id="duration">0</span> seconds</td>
                         </tr>
                         <tr>
-                            <td><a class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a></td>
+                            <td>Other</td>
+                            <td><span id="other">-</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
+                                <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id="">Remove</a>
+                            </td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -66,12 +73,12 @@
     <script>
         $(document).ready(function() {
             $("#frm-convert").submit(function(e) {
-                $("#frm-convert input[type=submit]").val("Converting... Please wait");
+                $("#frm-convert button[type=submit]").html("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Converting... Please wait");
 
                 e.preventDefault();
                 $.get($(this).attr("action"), { youtubelink: $("#link").val() },  function(data) {
-                    $("code").text(JSON.stringify(data));
-                    $("#frm-convert input[type=submit]").val("Convert");
+                    $("pre").text(JSON.stringify(data, null, 4));
+                    $("#frm-convert button[type=submit]").html("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Convert");
 
                     if(data.error) {
                         $("#error").html("<i class=\"fa fa-check\" aria-hidden=\"true\"></i>");
@@ -79,17 +86,28 @@
 
                         $("#duration").text(0);
                         $("#title").text("-");
+                        $("#other").text("-");
                         $("#download").attr("href", "#");
                         $("#download").addClass("disabled");
+                        $("#remove").addClass("disabled");
                     } else {
                         $("#error").html("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
                         $("#error-message").text("-");
 
                         $("#duration").text(data.duration);
-                        $("#title").text(data.title);
+                        $("#title").text(data.title + " (" + data.alt_title + ")");
                         $("#download").attr("href", data.file);
                         $("#download").removeClass("disabled");
+                        $("#remove").removeClass("disabled");
+                        $("#remove").data("id", data.youtube_id);
+                        $("#other").html("Youtube id: " + data.youtube_id + "<br/>Size: " + data.file_size + " bytes<br/>Uploaded at: " + data.uploaded_at.date);
                     }
+                });
+            });
+
+            $("#remove").click(function() {
+                $.get("convert.php", { delete: $(this).data("id") }, function(data) {
+                    alert(data.message);
                 });
             });
         });
