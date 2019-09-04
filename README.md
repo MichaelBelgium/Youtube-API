@@ -42,9 +42,13 @@ youtu.be/{vidid}
 | Parameter		|Type | Description |
 |-----------|-------------|-------------|
 | error	| boolean	| false |
+| youtube_id | string | The youtube identifier |
 | title	| string	| The title of the video that got converted |
+| alt_title | string | A secondary title of the video |
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
+| file_size | integer | The number of bytes |
+| uploaded_at | object | A Date object |
 
 ## `JSON - search.php`
 

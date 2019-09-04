@@ -52,6 +52,10 @@
                             <td><span id="duration">0</span> seconds</td>
                         </tr>
                         <tr>
+                            <td>Other</td>
+                            <td><span id="other">-</span></td>
+                        </tr>
+                        <tr>
                             <td><a class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a></td>
                             <td></td>
                         </tr>
@@ -79,6 +83,7 @@
 
                         $("#duration").text(0);
                         $("#title").text("-");
+                        $("#other").text("-");
                         $("#download").attr("href", "#");
                         $("#download").addClass("disabled");
                     } else {
@@ -86,9 +91,10 @@
                         $("#error-message").text("-");
 
                         $("#duration").text(data.duration);
-                        $("#title").text(data.title);
+                        $("#title").text(data.title + " (" + data.alt_title + ")");
                         $("#download").attr("href", data.file);
                         $("#download").removeClass("disabled");
+                        $("#other").html("Youtube id: " + data.youtube_id + "<br/>Size: " + data.file_size + " bytes<br/>Uploaded at: " + data.uploaded_at.date);
                     }
                 });
             });
