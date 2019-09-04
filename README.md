@@ -124,20 +124,28 @@ Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to 
 ## [User interface for converting (index file)](http://michaelbelgium.me/ytconverter/)
 
 ## Download/convert
-`http://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
+`https://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
 
 ```JSON
 {
-	"error": false,
-	"title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
-	"duration": 210,
-	"file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3"
+  "error": false,
+  "youtube_id": "gUJKs1m7Y8M",
+  "title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
+  "alt_title": "Meltdown",
+  "duration": 210,
+  "file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3",
+  "file_size": 6706413,
+  "uploaded_at": {
+    "date": "2016-10-13 20:59:06.000000",
+    "timezone_type": 3,
+    "timezone": "Europe/Berlin"
+  }
 }
 ```
 
 ## Search
 
-`http://michaelbelgium.me/ytconverter/search.php?q=belgium&max_results=5`
+`https://michaelbelgium.me/ytconverter/search.php?q=belgium&max_results=5`
 
 ```JSON
 {
