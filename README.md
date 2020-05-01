@@ -1,6 +1,7 @@
 # Youtube-to-mp3-API
 
 With these two php files you are able to create your own Youtube to MP3 API with ability to search also.
+See the wiki for examples.
 
 # Possible HTTP requests
 
@@ -48,7 +49,6 @@ youtu.be/{vidid}
 | alt_title | string | A secondary title of the video |
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
-| file_size | integer | The number of bytes |
 | uploaded_at | object | A Date object |
 
 ## `JSON - search.php`
@@ -70,15 +70,16 @@ First we install the dependencies on the server, then website.
 
 ## VPS
 
-* Install ffmpeg (+ libmp3lame - see below)
-* [install youtube-dl](https://rg3.github.io/youtube-dl/download.html)
+* Install ffmpeg (+ libmp3lame - see wiki for tutorial)
+* [install youtube-dl](http://ytdl-org.github.io/youtube-dl/download.html)
 
 ## Website
 
 * Get a google developer api key
 * Go to your webserver files to run composer into
 * Run `composer create-project michaelbelgium/youtube-to-mp3 [directoryname]` - where `directoryname` is .. a directory where people can access the API from.
-* Edit defines:
+
+## Configuration
 
 ### `search.php`
 ```PHP
@@ -92,103 +93,10 @@ define("API_KEY", ""); //google api key
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
 
-# How I installed ffmpeg (compiling/building and installing)
+### `convert.php`
 
-If you have ffmpeg in `yum` or `apt-get` this is **not needed**. I had to do this manually as I'm using Centos 6.x 
-
-## libmp3lame
-
-First i had to install `libmp3lame` - ffmpeg uses this.
-
-```
-mkdir ffmpeg_sources && cd ffmpeg_sources
-wget http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-tar xzvf lame-3.99.5.tar.gz
-cd lame-3.99.5
-./configure
-make
-make install
-lame
-```
-
-## ffmpeg
-
-Then ffmpeg; I work with Centos 6.x so the most updated ffmpeg is not available in `yum`
-
-```
-wget https://www.ffmpeg.org/releases/ffmpeg-3.3.2.tar.gz
-tar xfz ffmpeg-3.3.2.tar.gz
-cd ffmpeg-3.3.2
-./configure --enable-libmp3lame --disable-yasm
-make
-make install
-```
-
-Aftwards ffmpeg was installed in `/usr/local/bin/ffmpeg` which then I needed to specify in `convert.php`
-
-# Examples
-
-## [User interface for converting (index file)](http://michaelbelgium.me/ytconverter/)
-
-## Download/convert
-`https://michaelbelgium.me/ytconverter/convert.php?youtubelink=https://www.youtube.com/watch?v=gUJKs1m7Y8M`
-
-```JSON
-{
-  "error": false,
-  "youtube_id": "gUJKs1m7Y8M",
-  "title": "Devin Wild & Sub Zero Project - Meltdown (Official Videoclip)",
-  "alt_title": "Meltdown",
-  "duration": 210,
-  "file": "http://michaelbelgium.me/ytconverter/download/gUJKs1m7Y8M.mp3",
-  "file_size": 6706413,
-  "uploaded_at": {
-    "date": "2016-10-13 20:59:06.000000",
-    "timezone_type": 3,
-    "timezone": "Europe/Berlin"
-  }
-}
-```
-
-## Search
-
-`https://michaelbelgium.me/ytconverter/search.php?q=belgium&max_results=5`
-
-```JSON
-{
-  "error": false,
-  "message": null,
-  "results": [
-    {
-      "channel": "FOOTBALL MINDS",
-      "full_link": "https://youtube.com/watch?v=1Q6o3B5n_j4",
-      "id": "1Q6o3B5n_j4",
-      "title": "Belgium vs Japan 1-0 - Highlights & Goals - 14 November 2017"
-    },
-    {
-      "channel": "Football Highlights & Goals",
-      "full_link": "https://youtube.com/watch?v=v8DzbrQxXS8",
-      "id": "v8DzbrQxXS8",
-      "title": "BELGIUM vs MEXICO 3-3 ● All Goals & Highlights HD ● 10 Nov 2017 - FRIENDLY"
-    },
-    {
-      "channel": "deielsio",
-      "full_link": "https://youtube.com/watch?v=W3peC29XwOI",
-      "id": "W3peC29XwOI",
-      "title": "Lil Peep - Belgium [Unreleased]"
-    },
-    {
-      "channel": "Geography Now",
-      "full_link": "https://youtube.com/watch?v=0TuMvWCbM-g",
-      "id": "0TuMvWCbM-g",
-      "title": "Geography Now! Belgium"
-    },
-    {
-      "channel": "Wolters World",
-      "full_link": "https://youtube.com/watch?v=9SJiENN504M",
-      "id": "9SJiENN504M",
-      "title": "Visit Belgium - 5 Things You Will Love & Hate about Belgium"
-    }
-  ]
-}
+```PHP
+define("DOWNLOAD_FOLDER", dirname(__FILE__)."/download/"); //the folder where files are accessable to download
+define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
+define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
