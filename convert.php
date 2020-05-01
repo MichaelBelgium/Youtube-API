@@ -4,7 +4,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 use YoutubeDl\YoutubeDl;
 
 define("DOWNLOAD_FOLDER", __DIR__."/download/"); //Be sure the chmod the download folder
-define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 
 header("Content-Type: application/json");
@@ -72,12 +71,13 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 	try
 	{
+		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/download/";
 		if($exists)
-			$file = DOWNLOAD_FOLDER_PUBLIC.$matches[0].".".$format;
+			$file = $url.$id.".".$format;
 		else 
 		{
 			$video = $dl->download($youtubelink);
-			$file = DOWNLOAD_FOLDER_PUBLIC.$video->getFilename();
+			$file = $url.$video->getFilename();
 		}
 
 		echo json_encode(array(
