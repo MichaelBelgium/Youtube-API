@@ -3,7 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use YoutubeDl\YoutubeDl;
 
-define("DOWNLOAD_FOLDER", dirname(__FILE__)."/download/"); //Be sure the chmod the download folder
+define("DOWNLOAD_FOLDER", __DIR__."/download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 
@@ -31,7 +31,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			$video = $dl->download($youtubelink);
 	
 			if($video->getDuration() > DOWNLOAD_MAX_LENGTH && DOWNLOAD_MAX_LENGTH > 0)
-				throw new Exception("Video too large. Max video length is ".DOWNLOAD_MAX_LENGTH." seconds.");
+				throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".DOWNLOAD_MAX_LENGTH." seconds.");
 		}
 		catch (Exception $ex)
 		{
@@ -67,8 +67,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			"title" => $video->getTitle(),
 			"alt_title" => $video->getAltTitle(),
 			"duration" => $video->getDuration(),
-			"file" => $file, 
-			"file_size" => $exists ? filesize($localfile) : $video->getFilesize(),
+			"file" => $file,
 			"uploaded_at" => $video->getUploadDate()
 		));
 	}

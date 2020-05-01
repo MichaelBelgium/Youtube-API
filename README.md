@@ -48,7 +48,6 @@ youtu.be/{vidid}
 | alt_title | string | A secondary title of the video |
 | duration	| integer	| The duration of the video that got converted (in seconds) |
 | file	| string	| The streamlink or downloadable mp3 file |
-| file_size | integer | The number of bytes |
 | uploaded_at | object | A Date object |
 
 ## `JSON - search.php`
