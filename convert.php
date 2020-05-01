@@ -3,7 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use YoutubeDl\YoutubeDl;
 
-define("DOWNLOAD_FOLDER", __DIR__."/download/"); //Be sure the chmod the download folder
+define("DOWNLOAD_FOLDER", "download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 
 header("Content-Type: application/json");
@@ -11,28 +11,26 @@ header("Content-Type: application/json");
 if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 {
 	$youtubelink = $_GET["youtubelink"];
-	$format = $_GET['format'] ?: 'mp3';
+	$format = $_GET['format'] ?? 'mp3';
 
 	if(!in_array($format, ['mp3', 'mp4']))
-		die(json_encode(array("error" => true, "message" => "Invalid format (Only mp3 (default) or mp4)")));
+		die(json_encode(array("error" => true, "message" => "Invalid format: only mp3 or mp4 are possible")));
 
 	$success = preg_match('#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $youtubelink, $matches);
 
 	if(!$success)
 		die(json_encode(array("error" => true, "message" => "No video specified")));
 
-	$exists = file_exists(DOWNLOAD_FOLDER.$matches[0].".".$format);
+	$id = $matches[0];
 
-	$localfile = DOWNLOAD_FOLDER.$id.".mp3";
-	$exists = file_exists($localfile);
+	$exists = file_exists(DOWNLOAD_FOLDER.$id.".".$format);
 
-	if($exists || DOWNLOAD_MAX_LENGTH > 0)
+	if(DOWNLOAD_MAX_LENGTH > 0 || $exists)
 	{
 		$dl = new YoutubeDl(['skip-download' => true]);
 		$dl->setDownloadPath(DOWNLOAD_FOLDER);
 	
-		try
-		{
+		try	{
 			$video = $dl->download($youtubelink);
 	
 			if($video->getDuration() > DOWNLOAD_MAX_LENGTH && DOWNLOAD_MAX_LENGTH > 0)
@@ -98,7 +96,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
 {
 	$id = $_GET["delete"];
-	$format = $_GET["format"] ?: "mp3";
+	$format = $_GET["format"] ?? "mp3";
 
 	if(unlink(DOWNLOAD_FOLDER.$id.".".$format))
 		echo json_encode(array("error" => false, "message" => "File removed"));

@@ -96,7 +96,6 @@ define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able t
 ### `convert.php`
 
 ```PHP
-define("DOWNLOAD_FOLDER", dirname(__FILE__)."/download/"); //the folder where files are accessable to download
-define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
+define("DOWNLOAD_FOLDER", "download/"); //the folder where files are accessable to download
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
