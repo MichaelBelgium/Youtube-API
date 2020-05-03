@@ -1,4 +1,5 @@
 .vscode/
 vendor/
 download/*.mp3
+download/*.mp4
 composer.lock

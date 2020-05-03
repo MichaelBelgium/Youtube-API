@@ -7,12 +7,22 @@ See the wiki for examples.
 
 ## `GET - convert.php`
 
+### *Convert a video*
+
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
-| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download. |
+| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download.  |
+| format | No (default = mp3) | string: mp3 or mp4 | The format to download |
 | delete | No | string | The youtubeid of which you want it to be deleted from storage on the server |
 
-### __Possible youtubelinks__
+### *Delete a downloaded video*
+
+| Parameter		| Required	| Type | Description |
+|-----------|----------|-------------|-------------|
+| delete | Yes | string | The youtubeid that has to be deleted from storage on the server |
+| format | No (default = mp3 & mp4) | string: mp3 or mp4, leave empty to remove all | The format of the video that has to be deleted |
+
+### Possible youtubelinks
 ```
 youtube.com/v/{vidid}
 youtube.com/vi/{vidid}
@@ -82,14 +92,19 @@ First we install the dependencies on the server, then website.
 
 ### `search.php`
 ```PHP
-define("MAX_RESULTS", 10);
-define("API_KEY", "");
+define("MAX_RESULTS", 10); //max search results
+define("API_KEY", ""); //google api key
 ```
 
 ### `convert.php`
 
 ```PHP
-define("DOWNLOAD_FOLDER", dirname(__FILE__)."/download/"); //the folder where files are accessable to download
-define("DOWNLOAD_FOLDER_PUBLIC", "http://michaelbelgium.me/ytconverter/download/");
+define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
+```
+
+### `convert.php`
+
+```PHP
+define("DOWNLOAD_FOLDER", "download/"); //the folder where files are accessable to download
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
