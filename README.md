@@ -20,7 +20,7 @@ See the wiki for examples.
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
 | delete | Yes | string | The youtubeid that has to be deleted from storage on the server |
-| format | No (default = mp3) | string: mp3, mp4 | The format of the video that has to be deleted |
+| format | No (default = mp3 & mp4) | string: mp3 or mp4, leave empty to remove all | The format of the video that has to be deleted |
 
 ### Possible youtubelinks
 ```
