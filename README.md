@@ -7,13 +7,22 @@ See the wiki for examples.
 
 ## `GET - convert.php`
 
+### *Convert a video*
+
 | Parameter		| Required	| Type | Description |
 |-----------|----------|-------------|-------------|
-| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download. |
+| youtubelink	| Yes	| string |  The full youtubelink of the video you want to download.  |
 | format | No (default = mp3) | string: mp3 or mp4 | The format to download |
 | delete | No | string | The youtubeid of which you want it to be deleted from storage on the server |
 
-### __Possible youtubelinks__
+### *Delete a downloaded video*
+
+| Parameter		| Required	| Type | Description |
+|-----------|----------|-------------|-------------|
+| delete | Yes | string | The youtubeid that has to be deleted from storage on the server |
+| format | No (default = mp3) | string: mp3, mp4 | The format of the video that has to be deleted |
+
+### Possible youtubelinks
 ```
 youtube.com/v/{vidid}
 youtube.com/vi/{vidid}
