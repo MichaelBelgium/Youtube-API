@@ -19,6 +19,13 @@
                     <div class="form-group">
                         <input type="text" name="youtubelink" class="form-control" id="link" placeholder="Youtube url" required />
                     </div>
+                    <div class="form-group">
+                        <label for="format">Format</label>
+                        <select class="form-control" name="format" id="format">
+                            <option value="mp3">Audio (mp3)</option>
+                            <option value="mp4">Video (mp4)</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-outline-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Convert</button>
                 </form>
             </div>
@@ -36,28 +43,31 @@
                     <tbody>
                         <tr>
                             <td>Error:</td>
-                            <td><span id="error"><i class="fa fa-times" aria-hidden="true"></i></span></td>
+                            <td><i class="fa fa-times" aria-hidden="true"></i></td>
                         </tr>
                         <tr>
                             <td>Error message:</td>
-                            <td><span id="error-message">-</span></td>
+                            <td>-</td>
                         </tr>
-                        <tr><td colspan="2"></td></tr>
                         <tr>
                             <td>Title:</td>
-                            <td><span id="title">-</span></td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <td>Duration</td>
                             <td><span id="duration">0</span> seconds</td>
                         </tr>
                         <tr>
-                            <td>Other</td>
-                            <td><span id="other">-</span></td>
+                            <td>Youtube ID</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Uploaded at</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>
-                                <a class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
+                                <a target="_blank" class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
                                 <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id="">Remove</a>
                             </td>
                             <td></td>
@@ -73,34 +83,33 @@
     <script>
         $(document).ready(function() {
             $("#frm-convert").submit(function(e) {
-                $("#frm-convert button[type=submit]").html("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Converting... Please wait");
+                $("#frm-convert button[type=submit]").html("<i class=\"fa fa-spin fa-refresh\" aria-hidden=\"true\"></i> Converting... Please wait");
 
                 e.preventDefault();
-                $.get($(this).attr("action"), { youtubelink: $("#link").val() },  function(data) {
+                $.get($(this).attr("action"), { youtubelink: $('#link').val(), format: $('#format').val() },  function(data) {
                     $("pre").text(JSON.stringify(data, null, 4));
                     $("#frm-convert button[type=submit]").html("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Convert");
 
                     if(data.error) {
-                        $("#error").html("<i class=\"fa fa-check\" aria-hidden=\"true\"></i>");
-                        $("#error-message").text(data.message);
-
-                        $("#duration").text(0);
-                        $("#title").text("-");
-                        $("#other").text("-");
-                        $("#download").attr("href", "#");
-                        $("#download").addClass("disabled");
+                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-check\" aria-hidden=\"true\"></i>");
+                        $("table tr:eq(1) td:last").text(data.message);
+                        $("table tr:eq(2) td:last").text("-");
+                        $("table tr:eq(3) td:last").text(0);
+                        $("table tr:eq(4) td:last").text("-");
+                        $("table tr:eq(5) td:last").text("-");
+                        
+                        $("#download").attr("href", "#").addClass("disabled");
                         $("#remove").addClass("disabled");
                     } else {
-                        $("#error").html("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
-                        $("#error-message").text("-");
+                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
+                        $("table tr:eq(1) td:last").text("-");
+                        $("table tr:eq(2) td:last").text(data.title + " (" + data.alt_title + ")");
+                        $("table tr:eq(3) td:last").text(data.duration);
+                        $("table tr:eq(4) td:last").text(data.youtube_id);
+                        $("table tr:eq(5) td:last").text(new Date(data.uploaded_at.date));
 
-                        $("#duration").text(data.duration);
-                        $("#title").text(data.title + " (" + data.alt_title + ")");
-                        $("#download").attr("href", data.file);
-                        $("#download").removeClass("disabled");
-                        $("#remove").removeClass("disabled");
-                        $("#remove").data("id", data.youtube_id);
-                        $("#other").html("Youtube id: " + data.youtube_id + "<br/>Size: " + data.file_size + " bytes<br/>Uploaded at: " + data.uploaded_at.date);
+                        $("#download").attr("href", data.file).removeClass("disabled");
+                        $("#remove").removeClass("disabled").data("id", data.youtube_id);
                     }
                 });
             });
