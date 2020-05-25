@@ -110,3 +110,19 @@ define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able t
 define("DOWNLOAD_FOLDER", "download/"); //the folder where files are accessable to download
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 ```
+
+## docker-compose
+You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to `docker-compose.yml`.
+It will expose port 80 from the container, out to port 80 on the host. This can also be changed using the same file.
+
+### How to run with docker-compose
+Put docker-compose.yml and Dockerfile together in a new, empty folder.
+Then, run the following command to get it running
+```sh
+sudo docker-compose up -d
+```
+
+To stop:
+```sh
+sudo docker-compose down
+```

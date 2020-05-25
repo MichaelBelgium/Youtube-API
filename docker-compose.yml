@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  yt-convert-service:
+    environment:
+      - API_KEY=Insert your API key here from google
+    build: .
+    restart: unless-stopped
+    volumes:
+      - yt-api-webfiles:/var/www/html
+    ports:
+      - '80:80'
+
+volumes:
+  yt-api-webfiles:
