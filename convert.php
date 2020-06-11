@@ -71,7 +71,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 	try
 	{
-		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/download/";
+		$url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/".DOWNLOAD_FOLDER;
 		if($exists)
 			$file = $url.$id.".".$format;
 		else 
