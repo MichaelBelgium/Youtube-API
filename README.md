@@ -101,14 +101,9 @@ define("API_KEY", ""); //google api key
 ### `convert.php`
 
 ```PHP
-define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
-```
-
-### `convert.php`
-
-```PHP
 define("DOWNLOAD_FOLDER", "download/"); //the folder where files are accessable to download
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
+define("LOG", false); //enable logging
 ```
 
 ## docker-compose

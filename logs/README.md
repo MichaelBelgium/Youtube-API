@@ -1,0 +1,1 @@
+In this folder the logs will be stored, if LOG is enabled. Make sure that this folder is writable for the webserver.
