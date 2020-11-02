@@ -36,20 +36,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
 </head>
-<body>
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+<body class="container-fluid">
+    <select class="form-control my-4" name="log" onchange="onLogSelect();">
         <?php foreach($data as $name => $dates): ?>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link<?= $first == $name ? ' active' : ''?>" id="pills-<?= $name ?>-tab" data-toggle="pill" href="#pills-<?= $name ?>" role="tab" aria-controls="pills-<?= $name ?>" aria-selected="<?= $first == $name ? 'true' : 'false' ?>">
-                    <?= DateTime::createFromFormat('Ymd', $name)->format('d F Y'); ?>
-                </a>
-            </li>
+        <option value="<?= $name ?>">
+            <?= DateTime::createFromFormat('Ymd', $name)->format('d F Y'); ?>
+        </option>
         <?php endforeach; ?>
-    </ul>
+    </select>
 
-    <div class="tab-content">
     <?php foreach ($data as $name => $array): ?>
-        <div class="tab-pane fade<?= $first == $name ? ' show active' : '' ?>" id="pills-<?= $name ?>" role="tabpanel" aria-labelledby="pills-<?= $name ?>-tab">
+        <div class="result <?= $first == $name ? '' : 'd-none' ?>" id="<?= $name ?>">
             <table class="table w-100">
                 <thead>
                     <tr>
@@ -90,6 +87,16 @@
         $(document).ready(function () {
             $('table').DataTable();
         });
+
+        function onLogSelect() {
+            var selected = $('select[name=log] option:selected').val();
+
+            $('.result').each(function(index, el) {
+                $(el).addClass('d-none');
+            });
+
+            $('#' + selected).removeClass('d-none');
+        }
     </script>
 </body>
 </html>
