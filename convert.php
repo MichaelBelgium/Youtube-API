@@ -5,6 +5,7 @@ use YoutubeDl\YoutubeDl;
 
 define("DOWNLOAD_FOLDER", "download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
+define("LOG", false); //enable logging
 
 header("Content-Type: application/json");
 
@@ -71,7 +72,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 	try
 	{
-		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/download/";
+		$url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/".DOWNLOAD_FOLDER;
 		if($exists)
 			$file = $url.$id.".".$format;
 		else 
@@ -80,7 +81,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			$file = $url.$video->getFilename();
 		}
 
-		echo json_encode(array(
+		$json = json_encode(array(
 			"error" => false,
 			"youtube_id" => $video->getId(),
 			"title" => $video->getTitle(),
@@ -89,6 +90,16 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			"file" => $file,
 			"uploaded_at" => $video->getUploadDate()
 		));
+
+		if(LOG)
+		{
+			$now = new DateTime();
+			$file = fopen('logs/'.$now->format('Ymd').'.log', 'a');
+			fwrite($file, '[' . $now->format('H:i:s') . '] ' . $json . PHP_EOL);
+			fclose($file);
+		}
+
+		echo $json;
 	}
 	catch (Exception $e)
 	{
