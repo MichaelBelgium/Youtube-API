@@ -2,7 +2,7 @@ version: '3.3'
 services:
   yt-convert-service:
     environment:
-      - API_KEY=Insert your API key here from google
+      - API_KEY=YOUR_API_KEY_HERE
     build: .
     restart: unless-stopped
     volumes:
