@@ -37,6 +37,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
 </head>
 <body class="container-fluid">
+
+    <?php include '../includes/nav.php'; ?>
+
     <select class="form-control my-4" name="log" onchange="onLogSelect();">
         <?php foreach($data as $name => $dates): ?>
         <option value="<?= $name ?>">

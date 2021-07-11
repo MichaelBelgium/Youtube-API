@@ -10,6 +10,8 @@
 </head>
 <body>
     <div class="container-fluid">
+        <?php include 'includes/nav.php'; ?>
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
