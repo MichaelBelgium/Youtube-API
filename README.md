@@ -1,7 +1,7 @@
-# Youtube-to-mp3-API
+# Youtube-API
 
-With these two php files you are able to create your own Youtube to MP3 API with ability to search also.
-See the wiki for examples.
+With these files you are able to create your own Youtube API with ability to search also.
+See the [wiki](/wiki) for examples and demo.
 
 ## [Laravel version of this package](https://github.com/MichaelBelgium/Laravel-Youtube-API)
 
