@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Youtube to MP3</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
     <div class="p-2">
@@ -79,19 +79,19 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $("#frm-convert").submit(function(e) {
-                $("#frm-convert button[type=submit]").html("<i class=\"fa fa-spin fa-refresh\" aria-hidden=\"true\"></i> Converting... Please wait");
+                $("#frm-convert button[type=submit]").html("<i class=\"fas fa-spin fa-sync-alt\"></i> Converting... Please wait");
 
                 e.preventDefault();
                 $.get($(this).attr("action"), { youtubelink: $('#link').val(), format: $('#format').val() },  function(data) {
                     $("pre").text(JSON.stringify(data, null, 4));
-                    $("#frm-convert button[type=submit]").html("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Convert");
+                    $("#frm-convert button[type=submit]").html("<i class=\"fa fa-sync-alt\"></i> Convert");
 
                     if(data.error) {
-                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-check\" aria-hidden=\"true\"></i>");
+                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
                         $("table tr:eq(1) td:last").text(data.message);
                         $("table tr:eq(2) td:last").text("-");
                         $("table tr:eq(3) td:last").text(0);
@@ -101,7 +101,7 @@
                         $("#download").attr("href", "#").addClass("disabled");
                         $("#remove").addClass("disabled");
                     } else {
-                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-times\" aria-hidden=\"true\"></i>");
+                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
                         $("table tr:eq(1) td:last").text("-");
                         $("table tr:eq(2) td:last").text(data.title + " (" + data.alt_title + ")");
                         $("table tr:eq(3) td:last").text(data.duration);
