@@ -9,71 +9,126 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
-    <div class="p-2">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Youtube to mp3</h5>
-            </div>
-            <div class="card-body">
-                <form action="convert.php" method="post" id="frm-convert">
-                    <div class="form-group">
-                        <input type="text" name="youtubelink" class="form-control" id="link" placeholder="Youtube url" required />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Convert</h5>
                     </div>
-                    <div class="form-group">
-                        <label for="format">Format</label>
-                        <select class="form-control" name="format" id="format">
-                            <option value="mp3">Audio (mp3)</option>
-                            <option value="mp4">Video (mp4)</option>
-                        </select>
+                    <div class="card-body">
+                        <form action="convert.php" method="get" id="frm-convert">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="youtubelink" class="form-control" id="link" required placeholder="youtube.com" />
+                                <label for="link">Youtube url</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-control" name="format" id="format">
+                                    <option value="mp3">Audio (mp3)</option>
+                                    <option value="mp4">Video (mp4)</option>
+                                </select>
+                                <label for="format">Format</label>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i> Convert</button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-outline-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Convert</button>
-                </form>
-            </div>
-        </div>
+                </div>
 
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5 class="card-title">Json response</h5>
+                <div class="card mt-3" id="convert-response">
+                    <div class="card-header">
+                        <h5 class="card-title">Json response</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre>{}</pre>
+                    </div>
+                    <div class="card-footer">
+                        <table class="table table-borderless table-sm w-auto">
+                            <tbody>
+                                <tr>
+                                    <td>Error:</td>
+                                    <td><i class="fa fa-times" aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Error message:</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Title:</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td><span id="duration">0</span> seconds</td>
+                                </tr>
+                                <tr>
+                                    <td>Youtube ID</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Uploaded at</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a target="_blank" class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
+                                        <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id="">Remove</a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <pre>{}</pre>
-            </div>
-            <div class="card-footer">
-                <table class="table table-borderless table-sm w-auto">
-                    <tbody>
-                        <tr>
-                            <td>Error:</td>
-                            <td><i class="fa fa-times" aria-hidden="true"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Error message:</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Title:</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Duration</td>
-                            <td><span id="duration">0</span> seconds</td>
-                        </tr>
-                        <tr>
-                            <td>Youtube ID</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Uploaded at</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a target="_blank" class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
-                                <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id="">Remove</a>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Search</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="search.php" method="get" id="frm-search">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="q" class="form-control" id="q" required placeholder="search term" />
+                                <label for="q">Search term</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" name="max_results" id="max_results" class="form-control" value="10" placeholder="number">
+                                <label for="max_results">Maximum results</label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i> Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mt-3" id="search-response">
+                    <div class="card-header">
+                        <h5 class="card-title">Json response</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre>{}</pre>
+                    </div>
+                    <div class="card-footer">
+                        <table class="table table-borderless table-sm w-auto">
+                            <tbody>
+                                <tr>
+                                    <td>Error:</td>
+                                    <td><i class="fa fa-times"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Error message:</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Results:</td>
+                                    <td><ul></ul></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -87,26 +142,26 @@
 
                 e.preventDefault();
                 $.get($(this).attr("action"), { youtubelink: $('#link').val(), format: $('#format').val() },  function(data) {
-                    $("pre").text(JSON.stringify(data, null, 4));
+                    $("#convert-response pre").text(JSON.stringify(data, null, 4));
                     $("#frm-convert button[type=submit]").html("<i class=\"fa fa-sync-alt\"></i> Convert");
 
                     if(data.error) {
-                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
-                        $("table tr:eq(1) td:last").text(data.message);
-                        $("table tr:eq(2) td:last").text("-");
-                        $("table tr:eq(3) td:last").text(0);
-                        $("table tr:eq(4) td:last").text("-");
-                        $("table tr:eq(5) td:last").text("-");
+                        $("#convert-response table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
+                        $("#convert-response table tr:eq(1) td:last").text(data.message);
+                        $("#convert-response table tr:eq(2) td:last").text("-");
+                        $("#convert-response table tr:eq(3) td:last").text(0);
+                        $("#convert-response table tr:eq(4) td:last").text("-");
+                        $("#convert-response table tr:eq(5) td:last").text("-");
                         
                         $("#download").attr("href", "#").addClass("disabled");
                         $("#remove").addClass("disabled");
                     } else {
-                        $("table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
-                        $("table tr:eq(1) td:last").text("-");
-                        $("table tr:eq(2) td:last").text(data.title + " (" + data.alt_title + ")");
-                        $("table tr:eq(3) td:last").text(data.duration);
-                        $("table tr:eq(4) td:last").text(data.youtube_id);
-                        $("table tr:eq(5) td:last").text(new Date(data.uploaded_at.date));
+                        $("#convert-response table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
+                        $("#convert-response table tr:eq(1) td:last").text("-");
+                        $("#convert-response table tr:eq(2) td:last").text(data.title + " (" + data.alt_title + ")");
+                        $("#convert-response table tr:eq(3) td:last").text(data.duration);
+                        $("#convert-response table tr:eq(4) td:last").text(data.youtube_id);
+                        $("#convert-response table tr:eq(5) td:last").text(new Date(data.uploaded_at.date));
 
                         $("#download").attr("href", data.file).removeClass("disabled");
                         $("#remove").removeClass("disabled").data("id", data.youtube_id);
@@ -117,6 +172,35 @@
             $("#remove").click(function() {
                 $.get("convert.php", { delete: $(this).data("id") }, function(data) {
                     alert(data.message);
+                });
+            });
+
+            $('#frm-search').submit(function (e) {
+                e.preventDefault();
+
+                $.get($(this).attr('action'), { q: $('#q').val(), max_results: $('#max_results').val() }, function (data) {
+
+                    $("#search-response table tr:eq(2) td:last ul").empty();
+
+                    if(data.error) {
+                        $("#search-response table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
+                        $("#search-response table tr:eq(1) td:last").html(data.message);
+                    } else {
+                        $("#search-response table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
+                        $("#search-response table tr:eq(1) td:last").html('-');
+
+                        Array.from(data.results).forEach( el => {
+                            var btn = $('<button>', { class: 'ms-3 btn btn-sm btn-outline-secondary', text: 'Convert',  onclick: '$("#link").val("' + el.full_link + '"); return false;' });
+                            var a = $('<a>', { href: el.full_link, text: el.title});
+                            var item = $('<li>');
+                            a.appendTo(item);
+                            btn.appendTo(item);
+
+                            item.appendTo('#search-response table tr:eq(2) td:last ul');
+                        });
+                    }
+
+                    console.log(data);
                 });
             });
         });
