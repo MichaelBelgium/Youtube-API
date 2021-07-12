@@ -43,6 +43,7 @@ $(document).ready(function() {
         $.get($(this).attr('action'), { q: $('#q').val(), max_results: $('#max_results').val() }, function (data) {
 
             $("#search-response table tr:eq(2) td:last ul").empty();
+            $("#search-response pre").text(JSON.stringify(data, null, 4));
 
             if(data.error) {
                 $("#search-response table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
