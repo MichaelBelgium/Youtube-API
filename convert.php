@@ -1,11 +1,8 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
+require 'includes/config.php';
 
 use YoutubeDl\YoutubeDl;
-
-define("DOWNLOAD_FOLDER", "download/"); //Be sure the chmod the download folder
-define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
-define("LOG", false); //enable logging
 
 header("Content-Type: application/json");
 

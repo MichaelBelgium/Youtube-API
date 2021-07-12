@@ -1,9 +1,7 @@
 <?php
 
-define("MAX_RESULTS", 10);
-define("API_KEY", "");
-
 require_once __DIR__ . '/vendor/autoload.php';
+require 'includes/config.php';
 
 $result = array("error" => false, "message" => null, "results" => array());
 
