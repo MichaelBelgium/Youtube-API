@@ -92,18 +92,17 @@ First we install the dependencies on the server, then website.
 
 ## Configuration
 
-### `search.php`
-```PHP
-define("MAX_RESULTS", 10); //max search results
-define("API_KEY", ""); //google api key
-```
-
-### `convert.php`
+Setting options is available in `includes/config.php`
 
 ```PHP
-define("DOWNLOAD_FOLDER", "download/"); //the folder where files are accessable to download
+// convert.php
+define("DOWNLOAD_FOLDER", "download/"); //Be sure the chmod the download folder
 define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
 define("LOG", false); //enable logging
+
+// search.php
+define("MAX_RESULTS", 10); //maximum results to show 
+define("API_KEY", ""); //youtube api key from google
 ```
 
 ## docker-compose
