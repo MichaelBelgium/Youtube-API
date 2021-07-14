@@ -1,7 +1,7 @@
 # Youtube-API
 
 With these files you are able to create your own Youtube API with ability to search also.
-See the [wiki](/wiki) for examples and demo.
+See the [wiki](https://github.com/MichaelBelgium/Youtube-API/wiki) for examples and demo.
 
 ## [Laravel version of this package](https://github.com/MichaelBelgium/Laravel-Youtube-API)
 
@@ -92,18 +92,7 @@ First we install the dependencies on the server, then website.
 
 ## Configuration
 
-Setting options is available in `includes/config.php`
-
-```PHP
-// convert.php
-define("DOWNLOAD_FOLDER", "download/"); //Be sure the chmod the download folder
-define("DOWNLOAD_MAX_LENGTH", 0); //max video duration (in seconds) to be able to download, set to 0 to disable
-define("LOG", false); //enable logging
-
-// search.php
-define("MAX_RESULTS", 10); //maximum results to show 
-define("API_KEY", ""); //youtube api key from google
-```
+Setting options are available in [`src/Config.php`](https://github.com/MichaelBelgium/Youtube-API/blob/master/src/Config.php)
 
 ## docker-compose
 You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to `docker-compose.yml`.
