@@ -1,7 +1,8 @@
 <?php
 
+use MichaelBelgium\YoutubeConverter\Config;
+
 require_once __DIR__ . '/vendor/autoload.php';
-require 'includes/config.php';
 
 $result = array("error" => false, "message" => null, "results" => array());
 
@@ -9,13 +10,13 @@ header("Content-Type: application/json");
 
 if (isset($_GET["q"]) && !empty($_GET["q"]))
 {
-    $max_results = MAX_RESULTS;
+    $max_results = Config::MAX_RESULTS;
 
     if(isset($_GET["max_results"]) && !empty($_GET["max_results"]))
         $max_results = $_GET["max_results"];
 
     $client = new Google_Client();
-    $client->setDeveloperKey(API_KEY);
+    $client->setDeveloperKey(Config::API_KEY);
 
     $youtube_service = new Google_Service_YouTube($client);
 

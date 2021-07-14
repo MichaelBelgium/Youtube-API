@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-require 'includes/config.php';
 
+use MichaelBelgium\YoutubeConverter\Config;
 use YoutubeDl\YoutubeDl;
 
 header("Content-Type: application/json");
@@ -23,18 +23,18 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
 	$id = $matches[0];
 
-	$exists = file_exists(DOWNLOAD_FOLDER.$id.".".$format);
+	$exists = file_exists(Config::DOWNLOAD_FOLDER.$id.".".$format);
 
-	if(DOWNLOAD_MAX_LENGTH > 0 || $exists)
+	if(Config::DOWNLOAD_MAX_LENGTH > 0 || $exists)
 	{
 		$dl = new YoutubeDl(['skip-download' => true]);
-		$dl->setDownloadPath(DOWNLOAD_FOLDER);
+		$dl->setDownloadPath(Config::DOWNLOAD_FOLDER);
 	
 		try	{
 			$video = $dl->download($youtubelink);
 	
-			if($video->getDuration() > DOWNLOAD_MAX_LENGTH && DOWNLOAD_MAX_LENGTH > 0)
-				throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".DOWNLOAD_MAX_LENGTH." seconds.");
+			if($video->getDuration() > Config::DOWNLOAD_MAX_LENGTH && Config::DOWNLOAD_MAX_LENGTH > 0)
+				throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".Config::DOWNLOAD_MAX_LENGTH." seconds.");
 		}
 		catch (Exception $ex)
 		{
@@ -64,12 +64,12 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 		}
 
 		$dl = new YoutubeDl($options);
-		$dl->setDownloadPath(DOWNLOAD_FOLDER);
+		$dl->setDownloadPath(Config::DOWNLOAD_FOLDER);
 	}
 
 	try
 	{
-		$url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/".DOWNLOAD_FOLDER;
+		$url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/".Config::DOWNLOAD_FOLDER;
 		if($exists)
 			$file = $url.$id.".".$format;
 		else 
@@ -88,7 +88,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 			"uploaded_at" => $video->getUploadDate()
 		));
 
-		if(LOG)
+		if(Config::LOG)
 		{
 			$now = new DateTime();
 			$file = fopen('logs/'.$now->format('Ymd').'.log', 'a');
@@ -117,7 +117,7 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
 	$removedFiles = [];
 
 	foreach($format as $f) {
-		$localFile = DOWNLOAD_FOLDER.$id.".".$f;
+		$localFile = Config::DOWNLOAD_FOLDER.$id.".".$f;
 		if(file_exists($localFile)) {
 			unlink($localFile);
 			$removedFiles[] = $f;

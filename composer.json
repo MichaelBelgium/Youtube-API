@@ -12,5 +12,10 @@
             "name": "Michael V.",
             "email": "michael@michaelbelgium.me"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "MichaelBelgium\\YoutubeConverter\\": "src/"
+        }
+    }
 }
