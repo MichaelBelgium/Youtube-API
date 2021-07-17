@@ -12,5 +12,5 @@ RUN curl -sS https://getcomposer.org/installer | php \
 #install the project
 RUN cd /var/www/html && rm -rf *
 RUN /usr/local/bin/composer create-project michaelbelgium/youtube-to-mp3 .
-RUN sed -E 's/(define\("API_KEY"\, )""(\))/\1\getenv\("API_KEY"\)\2/' -i search.php 
+RUN sed -E 's/.*API_KEY.*/public function _constructor() { $this->API_KEY = getenv("API_KEY"); }/' -i src/Config.php
 RUN mkdir /var/www/.cache/ && chmod 777 /var/www/ -R
