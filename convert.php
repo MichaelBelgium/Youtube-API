@@ -71,7 +71,11 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
     try
     {
-        $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/".Config::DOWNLOAD_FOLDER;
+        $dirname = dirname($_SERVER['PHP_SELF']);
+        $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .
+            ($dirname == '/' ? '' : $dirname) . "/" .
+            Config::DOWNLOAD_FOLDER;
+
         if($exists)
             $file = $url.$id.".".$format;
         else
