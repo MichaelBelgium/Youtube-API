@@ -79,6 +79,9 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             $dl = new YoutubeDl();
             $video = $dl->download($options)->getVideos()[0];
 
+            if($video->getError() !== null)
+                die(json_encode(array("error" => true, "message" => $video->getError())));
+
             $file = $url.$video->getFilename();
         }
 
@@ -144,5 +147,5 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
     ));
 }
 else
-    echo json_encode(array("error" => true, "message" => "Invalid request"));
+    echo json_encode(array("error" => true, "message" => "Invalid request: missing 'youtubelink' parameter"));
 ?>
