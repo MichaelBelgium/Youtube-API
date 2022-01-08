@@ -57,15 +57,13 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
         if($format == 'mp3')
         {
-            $options->extractAudio(true)
+            $options = $options->extractAudio(true)
                 ->audioFormat('mp3')
                 ->audioQuality('0');
         }
         else
         {
-            $options
-                ->continue(true)
-                ->format('bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best');
+            $options = $options->format('bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best');
         }
     }
 
