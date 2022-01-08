@@ -2,6 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MichaelBelgium\YoutubeConverter\Config;
+use Symfony\Component\Process\ExecutableFinder;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
@@ -79,6 +80,12 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
         else
         {
             $dl = new YoutubeDl();
+
+            //use yt-dlp if it's installed on the system, faster downloads and lot more improvements than youtube-dl
+            $ytdlp = (new ExecutableFinder())->find('yt-dlp');
+            if($ytdlp !== null)
+                $dl->setBinPath($ytdlp);
+            
             $video = $dl->download($options)->getVideos()[0];
 
             if($video->getError() !== null)
