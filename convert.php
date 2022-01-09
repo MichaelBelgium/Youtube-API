@@ -35,6 +35,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             $video = $dl->download(
                 Options::create()
                     ->skipDownload(true)
+                    ->output('%(id)s')
                     ->downloadPath(Config::DOWNLOAD_FOLDER)
                     ->url($youtubelink)
             )->getVideos()[0];
@@ -72,11 +73,10 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     {
         $dirname = dirname($_SERVER['PHP_SELF']);
         $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .
-            ($dirname == '/' ? '' : $dirname) . "/" .
-            Config::DOWNLOAD_FOLDER;
+            ($dirname == '/' ? '' : $dirname) . "/";
 
         if($exists)
-            $file = $url.$id.".".$format;
+            $file = $url.$video->getFilename().'.'.$format;
         else
         {
             $dl = new YoutubeDl();
