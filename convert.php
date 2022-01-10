@@ -26,11 +26,16 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     $id = $matches[0];
 
     $exists = file_exists(Config::DOWNLOAD_FOLDER.$id.".".$format);
+    //use yt-dlp if it's installed on the system, faster downloads and lot more improvements than youtube-dl
+    $ytdlp = (new ExecutableFinder())->find('yt-dlp');
 
     if(Config::DOWNLOAD_MAX_LENGTH > 0 || $exists)
     {
         try	{
             $dl = new YoutubeDl();
+            
+            if($ytdlp !== null)
+                $dl->setBinPath($ytdlp);
 
             $video = $dl->download(
                 Options::create()
@@ -64,9 +69,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
                 ->audioQuality('0');
         }
         else
-        {
             $options = $options->format('bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best');
-        }
     }
 
     try
@@ -81,8 +84,6 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
         {
             $dl = new YoutubeDl();
 
-            //use yt-dlp if it's installed on the system, faster downloads and lot more improvements than youtube-dl
-            $ytdlp = (new ExecutableFinder())->find('yt-dlp');
             if($ytdlp !== null)
                 $dl->setBinPath($ytdlp);
             
