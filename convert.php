@@ -79,7 +79,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             ($dirname == '/' ? '' : $dirname) . "/";
 
         if($exists)
-            $file = $url.$video->getFilename().'.'.$format;
+            $file = $url.Config::DOWNLOAD_FOLDER.$video->getId().'.'.$format;
         else
         {
             $dl = new YoutubeDl();
