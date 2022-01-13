@@ -658,16 +658,16 @@
         },
         {
             "name": "norkunas/youtube-dl-php",
-            "version": "v2.1.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/norkunas/youtube-dl-php.git",
-                "reference": "51e352c032b9231d424c7ede97554c28b7d932ac"
+                "reference": "d1f363837986dba503e7b1080cadc8d374764d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/norkunas/youtube-dl-php/zipball/51e352c032b9231d424c7ede97554c28b7d932ac",
-                "reference": "51e352c032b9231d424c7ede97554c28b7d932ac",
+                "url": "https://api.github.com/repos/norkunas/youtube-dl-php/zipball/d1f363837986dba503e7b1080cadc8d374764d08",
+                "reference": "d1f363837986dba503e7b1080cadc8d374764d08",
                 "shasum": ""
             },
             "require": {
@@ -712,9 +712,9 @@
             ],
             "support": {
                 "issues": "https://github.com/norkunas/youtube-dl-php/issues",
-                "source": "https://github.com/norkunas/youtube-dl-php/tree/v2.1.1"
+                "source": "https://github.com/norkunas/youtube-dl-php/tree/v2.1.2"
             },
-            "time": "2021-12-29T13:51:08+00:00"
+            "time": "2022-01-13T08:00:12+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
