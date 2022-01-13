@@ -40,7 +40,6 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             $video = $dl->download(
                 Options::create()
                     ->skipDownload(true)
-                    ->output('%(id)s')
                     ->downloadPath(Config::DOWNLOAD_FOLDER)
                     ->url($youtubelink)
             )->getVideos()[0];
