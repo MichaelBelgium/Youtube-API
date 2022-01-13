@@ -17,5 +17,8 @@
         "psr-4": {
             "MichaelBelgium\\YoutubeConverter\\": "src/"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.3"
     }
 }
