@@ -16,12 +16,18 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     $format = $_GET['format'] ?? 'mp3';
 
     if(!in_array($format, POSSIBLE_FORMATS))
+    {
+        http_response_code(400);
         die(json_encode(array("error" => true, "message" => "Invalid format: only mp3 or mp4 are possible")));
+    }
 
     $success = preg_match('#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $youtubelink, $matches);
 
     if(!$success)
+    {
+        http_response_code(400);
         die(json_encode(array("error" => true, "message" => "No video specified")));
+    }
 
     $id = $matches[0];
 
@@ -49,6 +55,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
         }
         catch (Exception $ex)
         {
+            http_response_code(400);
             die(json_encode(array("error" => true, "message" => $ex->getMessage())));
         }
     }
@@ -116,6 +123,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     }
     catch (Exception $e)
     {
+        http_response_code(400);
         echo json_encode(array("error" => true, "message" => $e->getMessage()));
     }
 }
@@ -156,5 +164,8 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
     ));
 }
 else
+{
+    http_response_code(400);
     echo json_encode(array("error" => true, "message" => "Invalid request: missing 'youtubelink' parameter"));
+}
 ?>
