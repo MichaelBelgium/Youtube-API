@@ -71,8 +71,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a target="_blank" class="btn btn-outline-primary disabled" href="#" id="download"><i class="fa fa-cloud-download" aria-hidden="true"></i> Listen/download</a>
-                                        <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id="">Remove</a>
+                                        <a target="_blank" class="btn btn-outline-primary disabled" href="#" id="download"><i class="fas fa-cloud-download-alt"></i> Listen/download</a>
+                                        <a class="btn btn-outline-danger disabled" href="#" id="remove" data-id=""><i class="fas fa-trash-alt"></i> Remove</a>
                                     </td>
                                     <td></td>
                                 </tr>
