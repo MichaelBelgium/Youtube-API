@@ -32,7 +32,7 @@ Setting options are available in [`src/Config.php`](https://github.com/MichaelBe
 
 Check out the [wiki](https://github.com/MichaelBelgium/Youtube-API/wiki) for more docs.
 
-## docker-compose
+## Docker
 You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to `docker-compose.yml`.
 It will expose port 80 from the container, out to port 80 on the host. This can also be changed using the same file.
 
