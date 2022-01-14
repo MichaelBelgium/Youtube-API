@@ -45,6 +45,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
             $video = $dl->download(
                 Options::create()
+                    ->noPlaylist()
                     ->skipDownload(true)
                     ->downloadPath(Config::DOWNLOAD_FOLDER)
                     ->url($youtubelink)
@@ -66,6 +67,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             // ->ffmpegLocation('/usr/local/bin/ffmpeg')
             ->output('%(id)s.%(ext)s')
             ->downloadPath(Config::DOWNLOAD_FOLDER)
+            ->noPlaylist()
             ->url($youtubelink);
 
         if($format == 'mp3')
