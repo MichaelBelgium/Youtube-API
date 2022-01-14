@@ -1,9 +1,8 @@
 # Youtube-API
 
 With these files you are able to create your own Youtube API with ability to search also.
-See the [wiki](https://github.com/MichaelBelgium/Youtube-API/wiki) for examples and demo.
 
-## [Laravel version of this package](https://github.com/MichaelBelgium/Laravel-Youtube-API)
+[Laravel version of this package](https://github.com/MichaelBelgium/Laravel-Youtube-API)
 
 # Software requirements
 
