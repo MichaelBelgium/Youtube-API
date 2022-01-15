@@ -42,6 +42,7 @@ if (isset($_GET["q"]) && !empty($_GET["q"]))
     }
     catch (Exception $exception)
     {
+        http_response_code(400);
         $json = json_decode($exception->getMessage());
         $result["error"] = true;
         $result["message"] = $json->error->message;
@@ -49,8 +50,9 @@ if (isset($_GET["q"]) && !empty($_GET["q"]))
 }
 else
 {
+    http_response_code(400);
     $result["error"] = true;
-    $result["message"] = "Invalid request";
+    $result["message"] = "Invalid request. Missing 'q' parameter.";
 }
 
 echo json_encode($result);

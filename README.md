@@ -16,7 +16,7 @@ First we install the dependencies on the server, then website.
 ## VPS
 
 * Install ffmpeg (+ libmp3lame - see wiki for tutorial)
-* [install youtube-dl](http://ytdl-org.github.io/youtube-dl/download.html)
+* [install youtube-dl](http://ytdl-org.github.io/youtube-dl/download.html) or [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases/latest)
 
 ## Website
 

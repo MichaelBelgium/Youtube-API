@@ -3,7 +3,7 @@
     "description": "Convert and search youtube video's via your own API",
     "type": "project",
     "require": {
-        "norkunas/youtube-dl-php": "^1.0",
+        "norkunas/youtube-dl-php": "^2.0",
         "google/apiclient": "^2.0"
     },
     "license": "MIT",
