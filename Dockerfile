@@ -1,8 +1,11 @@
 FROM php:7.4-apache
 
 #Get latest updates and install software needed
-RUN apt-get update -qq && apt-get upgrade -qq
-RUN apt-get install -qq ffmpeg python3 wget curl net-tools unzip python3-dev python3-pip
+RUN apt-get update -qq \
+    && apt-get upgrade -qq \
+    && apt-get install -qq ffmpeg python3 wget curl net-tools unzip python3-dev python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN python3 -m pip install --upgrade youtube-dl
 
 #Get latest version of composer
