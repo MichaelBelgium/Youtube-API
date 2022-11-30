@@ -6,7 +6,7 @@ RUN apt-get update -qq \
     && apt-get install -qq ffmpeg python3 wget curl net-tools unzip python3-dev python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --upgrade youtube-dl pip
+RUN python3 -m pip install --upgrade yt-dlp pip
 
 #Get latest version of composer
 RUN curl -sS https://getcomposer.org/installer | php \
