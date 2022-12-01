@@ -1,14 +1,20 @@
-version: '3.3'
+version: '3.9'
 services:
-  yt-convert-service:
+  convert-api:
+    env_file:
+      - .env
     environment:
-      - API_KEY=YOUR_API_KEY_HERE
+      # The environment variable is now set inside the .env file.
+      # If you don't have the file ".env", please make it and put 
+      # API_KEY={api key here}
+      # in it. 
+      - API_KEY=${API_KEY:?API_KEY variable is not set in .env!}
     build: .
     restart: unless-stopped
     volumes:
-      - yt-api-webfiles:/var/www/html
+      - yt-api-files:/var/www/html
     ports:
-      - '80:80'
+      - ${HOST_PORT:-80}:80
 
 volumes:
-  yt-api-webfiles:
+  yt-api-files:

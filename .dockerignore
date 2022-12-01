@@ -1,2 +1,6 @@
 docker-compose.*
 Dockerfile
+.github
+*cache*
+download/
+.env

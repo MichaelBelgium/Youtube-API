@@ -33,17 +33,22 @@ Setting options are available in [`src/Config.php`](https://github.com/MichaelBe
 Check out the [wiki](https://github.com/MichaelBelgium/Youtube-API/wiki) for more docs.
 
 ## Docker
-You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to `docker-compose.yml`.
-It will expose port 80 from the container, out to port 80 on the host. This can also be changed using the same file.
+You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to the `.env` file.
+It will expose port 80 from the container, out to port 80 on the host. This can also be changed in `.env` under HOST_PORT. The docker image uses yt-dlp.
 
 ### How to run with docker-compose
-Put docker-compose.yml and Dockerfile together in a new, empty folder.
-Then, run the following command to get it running
+Put docker-compose.yml and Dockerfile together in a new, empty folder. Create `.env`, and set the values listed in the example `.env` in this repo.
+To run, use the following command:
 ```sh
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 To stop:
 ```sh
-sudo docker-compose down
+docker-compose down
+# Or use this to remove the attached volume, to clear up space-
+docker-compose down -v
 ```
+
+### Changing API Key?
+If you are changing your API key, the change will not reflect until you have removed the attached docker volume and restarted the container. Another option is to enter the container and go to `src/Config.php` and manually change it, or mount the config in as a separate volume.
