@@ -2,3 +2,5 @@
 vendor/
 download/*.mp3
 download/*.mp4
+# Do not track changes automatically in .env
+.env
