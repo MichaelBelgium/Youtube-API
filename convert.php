@@ -32,16 +32,11 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     $id = $matches[0];
 
     $exists = file_exists(Config::DOWNLOAD_FOLDER.$id.".".$format);
-    //use yt-dlp if it's installed on the system, faster downloads and lot more improvements than youtube-dl
-    $ytdlp = (new ExecutableFinder())->find('yt-dlp');
 
     if(Config::DOWNLOAD_MAX_LENGTH > 0 || $exists)
     {
         try	{
             $dl = new YoutubeDl();
-            
-            if($ytdlp !== null)
-                $dl->setBinPath($ytdlp);
 
             $video = $dl->download(
                 Options::create()
@@ -91,9 +86,6 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
         else
         {
             $dl = new YoutubeDl();
-
-            if($ytdlp !== null)
-                $dl->setBinPath($ytdlp);
             
             $video = $dl->download($options)->getVideos()[0];
 

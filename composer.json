@@ -5,7 +5,8 @@
     "require": {
         "php": ">=7.4",
         "norkunas/youtube-dl-php": "^2.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "ext-json": "*"
     },
     "license": "MIT",
     "authors": [
