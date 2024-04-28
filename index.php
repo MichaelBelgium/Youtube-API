@@ -17,19 +17,28 @@
                     <div class="card-header">
                         <h5 class="card-title">Convert</h5>
                     </div>
+
                     <div class="card-body">
                         <form action="convert.php" method="get" id="frm-convert">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="youtubelink" class="form-control" id="link" required placeholder="youtube.com" />
-                                <label for="link">Youtube url</label>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="youtubelink" class="form-control" id="link" required placeholder="youtube.com" />
+                                        <label for="link">Youtube url</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control" name="format" id="format">
+                                            <option value="mp3">Audio (mp3)</option>
+                                            <option value="mp4">Video (mp4)</option>
+                                        </select>
+                                        <label for="format">Format</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <select class="form-control" name="format" id="format">
-                                    <option value="mp3">Audio (mp3)</option>
-                                    <option value="mp4">Video (mp4)</option>
-                                </select>
-                                <label for="format">Format</label>
-                            </div>
+
                             <button type="submit" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i> Convert</button>
                         </form>
                     </div>
@@ -89,16 +98,22 @@
                     </div>
                     <div class="card-body">
                         <form action="search.php" method="get" id="frm-search">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="q" class="form-control" id="q" required placeholder="search term" />
-                                <label for="q">Search term</label>
-                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
 
-                            <div class="form-floating mb-3">
-                                <input type="number" name="max_results" id="max_results" class="form-control" value="10" placeholder="number">
-                                <label for="max_results">Maximum results</label>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="q" class="form-control" id="q" required placeholder="search term" />
+                                        <label for="q">Search term</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="max_results" id="max_results" class="form-control" value="10" placeholder="number">
+                                        <label for="max_results">Maximum results</label>
+                                    </div>
+                                </div>
                             </div>
-                            
                             <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i> Search</button>
                         </form>
                     </div>
