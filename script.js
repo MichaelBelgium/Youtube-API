@@ -1,67 +1,119 @@
-$(document).ready(function() {
-    $("#frm-convert").submit(function(e) {
-        $("#frm-convert button[type=submit]").html("<i class=\"fas fa-spin fa-sync-alt\"></i> Converting... Please wait");
+document.addEventListener('DOMContentLoaded', () => {
+    const frmConvert = document.getElementById('frm-convert');
+    const removeButton = document.getElementById('remove');
+    const frmSearch = document.getElementById('frm-search');
 
+    frmConvert.addEventListener('submit', (e) => {
         e.preventDefault();
-        $.get($(this).attr("action"), { youtubelink: $('#link').val(), format: $('#format').val() },  function(data) {
-            $("#convert-response pre").text(JSON.stringify(data, null, 4));
-            $("#frm-convert button[type=submit]").html("<i class=\"fa fa-sync-alt\"></i> Convert");
+        const submitButton = frmConvert.querySelector("button[type=submit]");
+        const link = document.getElementById('link').value;
+        const format = document.getElementById('format').value;
 
-            if(data.error) {
-                $("#convert-response table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
-                $("#convert-response table tr:eq(1) td:last").text(data.message);
-                $("#convert-response table tr:eq(2) td:last").text("-");
-                $("#convert-response table tr:eq(3) td:last").text(0);
-                $("#convert-response table tr:eq(4) td:last").text("-");
-                $("#convert-response table tr:eq(5) td:last").text("-");
-                
-                $("#download").attr("href", "#").addClass("disabled");
-                $("#remove").addClass("disabled");
-            } else {
-                $("#convert-response table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
-                $("#convert-response table tr:eq(1) td:last").text("-");
-                $("#convert-response table tr:eq(2) td:last").text(data.title + " (" + data.alt_title + ")");
-                $("#convert-response table tr:eq(3) td:last").text(data.duration);
-                $("#convert-response table tr:eq(4) td:last").text(data.youtube_id);
-                $("#convert-response table tr:eq(5) td:last").text(new Date(data.uploaded_at.date));
+        submitButton.classList.add("disabled");
+        submitButton.innerHTML = "<i class=\"fas fa-spin fa-sync-alt\"></i> Converting...";
 
-                $("#download").attr("href", data.file).removeClass("disabled");
-                $("#remove").removeClass("disabled").data("id", data.youtube_id);
-            }
-        });
+        const endpoint = `${frmConvert.getAttribute("action")}?youtubelink=${link}&format=${format}`;
+
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => handleConvertResponse(data, submitButton));
     });
 
-    $("#remove").click(function() {
-        $.get("convert.php", { delete: $(this).data("id") }, function(data) {
-            alert(data.message);
-        });
+    removeButton.addEventListener('click', () => {
+        const id = removeButton.getAttribute('data-id');
+        fetch(`convert.php?delete=${id}`)
+            .then(response => response.json())
+            .then(data => alert(data.message));
     });
 
-    $('#frm-search').submit(function (e) {
+    frmSearch.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        $.get($(this).attr('action'), { q: $('#q').val(), max_results: $('#max_results').val() }, function (data) {
+        const submitButton = frmSearch.querySelector("button[type=submit]");
+        const query = document.getElementById('q').value;
+        const maxResults = document.getElementById('max_results').value;
 
-            $("#search-response table tr:eq(2) td:last ul").empty();
-            $("#search-response pre").text(JSON.stringify(data, null, 4));
+        submitButton.classList.add("disabled");
+        submitButton.innerHTML = "<i class=\"fas fa-spin fa-sync-alt\"></i> Searching...";
 
-            if(data.error) {
-                $("#search-response table tr:eq(0) td:last").html("<i class=\"fa fa-check\"></i>");
-                $("#search-response table tr:eq(1) td:last").html(data.message);
-            } else {
-                $("#search-response table tr:eq(0) td:last").html("<i class=\"fa fa-times\"></i>");
-                $("#search-response table tr:eq(1) td:last").html('-');
-
-                Array.from(data.results).forEach( el => {
-                    var btn = $('<button>', { class: 'ms-3 btn btn-sm btn-outline-secondary', text: 'Convert',  onclick: '$("#link").val("' + el.full_link + '"); return false;' });
-                    var a = $('<a>', { href: el.full_link, text: el.title});
-                    var item = $('<li>');
-                    a.appendTo(item);
-                    btn.appendTo(item);
-
-                    item.appendTo('#search-response table tr:eq(2) td:last ul');
-                });
-            }
-        });
+        fetch(`${frmSearch.getAttribute('action')}?q=${query}&max_results=${maxResults}`)
+            .then(response => response.json())
+            .then(data => handleSearchResponse(data, submitButton));
     });
 });
+
+function handleConvertResponse(data, submitButton) {
+    document.getElementById("convert-response").querySelector('pre').innerText = JSON.stringify(data, null, 4);
+    submitButton.innerHTML = "<i class=\"fa fa-sync-alt\"></i> Convert";
+    submitButton.classList.remove("disabled");
+
+    const tableCells = document.querySelectorAll("#convert-response table tr td:last-child");
+    const downloadButton = document.getElementById('download');
+    const removeButton = document.getElementById('remove');
+
+    if(data.error) {
+        tableCells[0].innerHTML = "<i class=\"fa fa-check\"></i>";
+        tableCells[1].innerText = data.message;
+        tableCells[2].innerText = "-";
+        tableCells[3].innerText = "0";
+        tableCells[4].innerText = "-";
+        tableCells[5].innerText = "-";
+
+        downloadButton.setAttribute("href", "#");
+        downloadButton.classList.add("disabled");
+    } else {
+        tableCells[0].innerHTML = "<i class=\"fa fa-times\"></i>";
+        tableCells[1].innerText = "-";
+        tableCells[2].innerText = `${data.title} (${data.alt_title})`;
+        tableCells[3].innerText = data.duration;
+        tableCells[4].innerText = data.youtube_id;
+        tableCells[5].innerText = new Date(data.uploaded_at.date).toLocaleString();
+
+        downloadButton.setAttribute("href", data.file);
+        downloadButton.classList.remove("disabled");
+
+        removeButton.setAttribute('data-id', data.youtube_id);
+        removeButton.classList.remove('disabled');
+    }
+}
+
+function handleSearchResponse(data, submitButton) {
+    submitButton.innerHTML = "<i class=\"fa fa-search\"></i> Search";
+    submitButton.classList.remove("disabled");
+
+    const preElement = document.getElementById("search-response").querySelector('pre');
+    preElement.innerText = JSON.stringify(data, null, 4);
+
+    const tableCells = document.querySelectorAll("#search-response table tr td:last-child");
+    const ulElement = document.querySelector("#search-response table tr:nth-child(3) td:last-child ul");
+    ulElement.innerHTML = '';
+
+    if(data.error) {
+        tableCells[0].innerHTML = "<i class=\"fa fa-check\"></i>";
+        tableCells[1].innerText = data.message;
+    } else {
+        tableCells[0].innerHTML = "<i class=\"fa fa-times\"></i>";
+        tableCells[1].innerText = "-";
+
+        data.results.forEach(el => {
+            const btn = document.createElement('button');
+            btn.className = 'ms-3 btn btn-sm btn-outline-secondary';
+            btn.innerText = 'Convert';
+            btn.onclick = () => {
+                document.getElementById('link').value = el.full_link;
+                document.getElementById('link').scrollIntoView({behavior: "smooth"});
+                return false;
+            };
+
+            const a = document.createElement('a');
+            a.href = el.full_link;
+            a.innerText = el.title;
+
+            const item = document.createElement('li');
+            item.appendChild(a);
+            item.appendChild(btn);
+
+            ulElement.appendChild(item);
+        });
+    }
+}
