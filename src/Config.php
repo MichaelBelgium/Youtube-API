@@ -27,6 +27,13 @@ class Config
      */
     const LOG = false;
 
+    /**
+     * Set a proxy for yt-dlp or youtube-dl
+     *
+     * Note: set to null to disable
+     */
+    const PROXY = null;
+
     //================ search options ================
 
     /**

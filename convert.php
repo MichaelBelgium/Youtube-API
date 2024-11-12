@@ -2,7 +2,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MichaelBelgium\YoutubeConverter\Config;
-use Symfony\Component\Process\ExecutableFinder;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
@@ -62,6 +61,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             // ->ffmpegLocation('/usr/local/bin/ffmpeg')
             ->output('%(id)s.%(ext)s')
             ->downloadPath(Config::DOWNLOAD_FOLDER)
+            ->proxy(Config::PROXY)
             ->noPlaylist()
             ->url($youtubelink);
 
