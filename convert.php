@@ -40,10 +40,14 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             $video = $dl->download(
                 Options::create()
                     ->noPlaylist()
+                    ->proxy(Config::PROXY)
                     ->skipDownload(true)
                     ->downloadPath(Config::DOWNLOAD_FOLDER)
                     ->url($youtubelink)
             )->getVideos()[0];
+
+            if ($video->getError() !== null)
+                throw new Exception($video->getError());
     
             if($video->getDuration() > Config::DOWNLOAD_MAX_LENGTH && Config::DOWNLOAD_MAX_LENGTH > 0)
                 throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".Config::DOWNLOAD_MAX_LENGTH." seconds.");
