@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const frmConvert = document.getElementById('frm-convert');
     const removeButton = document.getElementById('remove');
     const frmSearch = document.getElementById('frm-search');
+    const frmInfo = document.getElementById('frm-info');
 
     frmConvert.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const submitButton = frmSearch.querySelector("button[type=submit]");
-        const query = document.getElementById('q').value;
+        const query = document.getElementById('q_search').value;
         const maxResults = document.getElementById('max_results').value;
 
         submitButton.classList.add("disabled");
@@ -39,6 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`${frmSearch.getAttribute('action')}?q=${query}&max_results=${maxResults}`)
             .then(response => response.json())
             .then(data => handleSearchResponse(data, submitButton));
+    });
+
+    frmInfo.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const submitButton = frmInfo.querySelector("button[type=submit]");
+        const query = document.getElementById('q_info').value;
+
+        submitButton.classList.add("disabled");
+        submitButton.innerHTML = "<i class=\"fas fa-spin fa-sync-alt\"></i> Getting info...";
+
+        fetch(`${frmInfo.getAttribute('action')}?q=${query}`)
+            .then(response => response.json())
+            .then(data => handleInfoResponse(data, submitButton));
     });
 });
 
@@ -89,6 +104,9 @@ function handleSearchResponse(data, submitButton) {
     ulElement.innerHTML = '';
 
     if(data.error) {
+        for (let i = 0; i < tableCells.length; i++)
+            tableCells[i].innerText = "-";
+
         tableCells[0].innerHTML = "<i class=\"fa fa-check\"></i>";
         tableCells[1].innerText = data.message;
     } else {
@@ -115,5 +133,39 @@ function handleSearchResponse(data, submitButton) {
 
             ulElement.appendChild(item);
         });
+    }
+}
+
+function handleInfoResponse(data, submitButton)
+{
+    submitButton.innerHTML = "<i class=\"fa fa-search\"></i> Retrieve info";
+    submitButton.classList.remove("disabled");
+
+    const preElement = document.getElementById("info-response").querySelector('pre');
+    preElement.innerText = JSON.stringify(data, null, 4);
+
+    const tableCells = document.querySelectorAll("#info-response table tr td:last-child");
+
+    if (data.error)
+    {
+        for (let i = 0; i < tableCells.length; i++)
+            tableCells[i].innerText = "-";
+
+        tableCells[0].innerHTML = "<i class=\"fa fa-check\"></i>";
+        tableCells[1].innerText = data.message;
+    }
+    else
+    {
+        tableCells[0].innerHTML = "<i class=\"fa fa-times\"></i>";
+        tableCells[1].innerText = "-";
+        tableCells[2].innerText = data.channel;
+        tableCells[3].innerText = data.channel_id;
+        tableCells[4].innerHTML = `<a target='_blank' href='${data.channel_url}'>${data.channel_url}</a>`;
+        tableCells[5].innerText = data.description;
+        tableCells[6].innerText = data.duration + ' seconds';
+        tableCells[7].innerText = data.id;
+        tableCells[8].innerText = data.published_at;
+        tableCells[9].innerText = data.title;
+        tableCells[10].innerHTML = `<a target='_blank' href='${data.url}'>${data.url}</a>`;
     }
 }

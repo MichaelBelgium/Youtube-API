@@ -12,7 +12,7 @@
         <?php include 'includes/nav.php'; ?>
 
         <div class="row mt-2">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Convert</h5>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Search</h5>
@@ -100,10 +100,9 @@
                         <form action="search.php" method="get" id="frm-search">
                             <div class="row">
                                 <div class="col-lg-8">
-
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="q" class="form-control" id="q" required placeholder="search term" />
-                                        <label for="q">Search term</label>
+                                        <input type="text" name="q" class="form-control" id="q_search" required placeholder="search term" />
+                                        <label for="q_search">Search term</label>
                                     </div>
                                 </div>
 
@@ -141,6 +140,86 @@
                                     <td>Results:</td>
                                     <td><ul></ul></td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Info</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="info.php" method="get" id="frm-info">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="q" class="form-control" id="q_info" required placeholder="" />
+                                        <label for="q_info">Youtube ID or url</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i> Retrieve info</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mt-3" id="info-response">
+                    <div class="card-header">
+                        <h5 class="card-title">Json response</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre>{}</pre>
+                    </div>
+                    <div class="card-footer">
+                        <table class="table table-borderless table-sm w-auto">
+                            <tbody>
+                            <tr>
+                                <td>Error:</td>
+                                <td><i class="fa fa-times"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Error message:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Channel:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Channel ID:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Channel URL:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Duration:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>ID:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Published at:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Title:</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>URL:</td>
+                                <td>-</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
