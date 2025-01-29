@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "418f300f2132fa7cf4a94d2e758352da",
+    "content-hash": "891368e739d41e05a88ed4c221b5e1c7",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -140,16 +140,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.391.0",
+            "version": "v0.392.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "911ebf7a6b570780fb994c007344cf3da4187de6"
+                "reference": "a74c2790865bd1f06c0a49460ef1c0edb0be0e7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/911ebf7a6b570780fb994c007344cf3da4187de6",
-                "reference": "911ebf7a6b570780fb994c007344cf3da4187de6",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/a74c2790865bd1f06c0a49460ef1c0edb0be0e7e",
+                "reference": "a74c2790865bd1f06c0a49460ef1c0edb0be0e7e",
                 "shasum": ""
             },
             "require": {
@@ -178,22 +178,22 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.391.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.392.0"
             },
-            "time": "2025-01-20T01:04:13+00:00"
+            "time": "2025-01-27T01:10:20+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.45.1",
+            "version": "v1.45.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "86e9d937632a96b09dc40444c7cb68eb778a6ea6"
+                "reference": "000d9439f430c6e56cba105c5ab750f5f7d69ea8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/86e9d937632a96b09dc40444c7cb68eb778a6ea6",
-                "reference": "86e9d937632a96b09dc40444c7cb68eb778a6ea6",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/000d9439f430c6e56cba105c5ab750f5f7d69ea8",
+                "reference": "000d9439f430c6e56cba105c5ab750f5f7d69ea8",
                 "shasum": ""
             },
             "require": {
@@ -230,7 +230,7 @@
                 "Apache-2.0"
             ],
             "description": "Google Auth Library for PHP",
-            "homepage": "http://github.com/google/google-auth-library-php",
+            "homepage": "https://github.com/google/google-auth-library-php",
             "keywords": [
                 "Authentication",
                 "google",
@@ -239,9 +239,9 @@
             "support": {
                 "docs": "https://googleapis.github.io/google-auth-library-php/main/",
                 "issues": "https://github.com/googleapis/google-auth-library-php/issues",
-                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.45.1"
+                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.45.3"
             },
-            "time": "2025-01-22T23:27:35+00:00"
+            "time": "2025-01-29T18:17:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1332,25 +1332,25 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v6.4.13",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "4856c9cf585d5a0313d8d35afd681a526f038dd3"
+                "reference": "b8dce482de9d7c9fe2891155035a7248ab5c7fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/4856c9cf585d5a0313d8d35afd681a526f038dd3",
-                "reference": "4856c9cf585d5a0313d8d35afd681a526f038dd3",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/b8dce482de9d7c9fe2891155035a7248ab5c7fdb",
+                "reference": "b8dce482de9d7c9fe2891155035a7248ab5c7fdb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1",
+                "php": ">=8.2",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-mbstring": "~1.8"
             },
             "require-dev": {
-                "symfony/process": "^5.4|^6.4|^7.0"
+                "symfony/process": "^6.4|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -1378,7 +1378,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v6.4.13"
+                "source": "https://github.com/symfony/filesystem/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -1394,7 +1394,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-25T15:07:50+00:00"
+            "time": "2024-10-25T15:15:23+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1637,20 +1637,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.4.15",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "3cb242f059c14ae08591c5c4087d1fe443564392"
+                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/3cb242f059c14ae08591c5c4087d1fe443564392",
-                "reference": "3cb242f059c14ae08591c5c4087d1fe443564392",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
+                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.2"
             },
             "type": "library",
             "autoload": {
@@ -1678,7 +1678,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.15"
+                "source": "https://github.com/symfony/process/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -1694,7 +1694,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T14:19:14+00:00"
+            "time": "2024-11-06T14:24:19+00:00"
         }
     ],
     "packages-dev": [
@@ -1763,7 +1763,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4",
+        "php": ">=8.2",
         "ext-json": "*"
     },
     "platform-dev": [],
