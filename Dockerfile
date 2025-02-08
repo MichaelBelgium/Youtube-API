@@ -7,7 +7,7 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip, and install yt-dlp.
-RUN python3 -m pip install --upgrade yt-dlp pip
+RUN curl -L -o yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp && chmod +x yt-dlp && mv yt-dlp /usr/bin/
 
 #Get latest version of composer
 RUN curl -sS https://getcomposer.org/installer | php \
