@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const submitButton = frmSearch.querySelector("button[type=submit]");
-        const query = document.getElementById('q_search').value;
+        const query = document.getElementById('q').value;
         const maxResults = document.getElementById('max_results').value;
 
         submitButton.classList.add("disabled");
