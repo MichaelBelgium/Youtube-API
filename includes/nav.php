@@ -8,7 +8,7 @@ if ($currentPath === '') {
 }
 
 // Use the basename function to check if we're in the "logs" folder.
-$brandHref = ($currentPath === '/') ? '.' : '..';
+$brandHref = (basename($currentPath) === 'logs') ? '..' : '.';
 $logsHref  = (basename($currentPath) === 'logs') ? '.' : 'logs';
 ?>
 
