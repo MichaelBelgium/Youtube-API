@@ -34,6 +34,18 @@ class Config
      */
     const PROXY = null;
 
+    /**
+     * The location of the cookies file, no need to change. Create a cookies.txt file in the root of the project with Mozilla/Netscape formatted cookies.
+     * If it doesn't exist, no cookies will be used.
+     *
+     * Can be a solution for "Sign in to confirm you’re not a bot."
+     *
+     * @see
+     * - https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp
+     * - https://github.com/ytdl-org/youtube-dl/tree/master?tab=readme-ov-file#how-do-i-pass-cookies-to-youtube-dl
+     */
+    const COOKIE_FILE = "cookies.txt";
+
     //================ search options ================
 
     /**

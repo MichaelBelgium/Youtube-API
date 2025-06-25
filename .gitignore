@@ -4,3 +4,4 @@ vendor/
 download/*.mp3
 download/*.mp4
 .env
+cookies.txt

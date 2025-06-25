@@ -62,12 +62,14 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     if(!$exists)
     {
         $options = Options::create()
-            // ->ffmpegLocation('/usr/local/bin/ffmpeg')
             ->output('%(id)s.%(ext)s')
             ->downloadPath(Config::DOWNLOAD_FOLDER)
             ->proxy(Config::PROXY)
             ->noPlaylist()
             ->url($youtubelink);
+
+        if (file_exists(Config::COOKIE_FILE))
+            $options = $options->cookies(Config::COOKIE_FILE);
 
         if($format == 'mp3')
         {
