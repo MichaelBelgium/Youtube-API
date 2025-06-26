@@ -43,6 +43,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
                     ->proxy(Config::PROXY)
                     ->skipDownload(true)
                     ->downloadPath(Config::DOWNLOAD_FOLDER)
+                    ->cookies(file_exists(Config::COOKIE_FILE) ? Config::COOKIE_FILE : null)
                     ->url($youtubelink)
             )->getVideos()[0];
 
@@ -66,10 +67,8 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             ->downloadPath(Config::DOWNLOAD_FOLDER)
             ->proxy(Config::PROXY)
             ->noPlaylist()
+            ->cookies(file_exists(Config::COOKIE_FILE) ? Config::COOKIE_FILE : null)
             ->url($youtubelink);
-
-        if (file_exists(Config::COOKIE_FILE))
-            $options = $options->cookies(Config::COOKIE_FILE);
 
         if($format == 'mp3')
         {
