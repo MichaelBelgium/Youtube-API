@@ -1,7 +1,7 @@
-.vscode/
 .idea/
 vendor/
 public/download/*.mp3
 public/download/*.mp4
+public/logs/*.log
 .env
 cookies.txt
