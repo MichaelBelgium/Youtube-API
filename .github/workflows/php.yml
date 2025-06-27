@@ -30,4 +30,4 @@ jobs:
       run: composer install --prefer-dist --no-progress
       
     - name: Run PHPstan
-      run: vendor/bin/phpstan analyse --error-format=github src/ logs/index.php index.php convert.php search.php
+      run: vendor/bin/phpstan analyse --error-format=github src/ public/
