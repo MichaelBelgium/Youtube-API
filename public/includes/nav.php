@@ -1,13 +1,10 @@
 <?php
-// Get the path from the request URI and remove any trailing slash.
 $currentPath = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
-// If the path is empty, assume it's the root.
 if ($currentPath === '') {
     $currentPath = '/';
 }
 
-// Use the basename function to check if we're in the "logs" folder.
 $brandHref = ($currentPath === '/') ? '.' : '..';
 $logsHref  = (basename($currentPath) === 'logs') ? '.' : 'logs';
 ?>
