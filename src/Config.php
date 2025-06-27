@@ -44,7 +44,7 @@ class Config
      * - https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp
      * - https://github.com/ytdl-org/youtube-dl/tree/master?tab=readme-ov-file#how-do-i-pass-cookies-to-youtube-dl
      */
-    const COOKIE_FILE = "cookies.txt";
+    const COOKIE_FILE = "../cookies.txt";
 
     //================ search options ================
 
