@@ -1,10 +1,19 @@
 <?php
+    require_once __DIR__ . '/../../vendor/autoload.php';
+
+    if (!\MichaelBelgium\YoutubeConverter\Config::LOG)
+    {
+        http_response_code(404);
+        die('Logging is disabled. Please enable it in the config file to view this page.');
+    }
+
     $files = glob(__DIR__ . '/*.log');
 
     $data = [];
     $first = null;
 
-    foreach ($files as $filePath) {
+    foreach ($files as $filePath)
+    {
         $name = pathinfo($filePath, PATHINFO_FILENAME);
         if($first === null) $first = $name;
         
@@ -12,8 +21,13 @@
 
         $file = new SplFileObject($filePath);
         
-        while(!$file->eof()) {
+        while(!$file->eof())
+        {
             $line = $file->fgets();
+
+            if (strlen($line) == 0)
+                continue;
+
             $parts = explode(' ', $line, 2);
 
             $data[$name][] = [
@@ -21,8 +35,6 @@
                 json_decode($parts[1])
             ];
         }
-
-        unset($data[$name][count($data[$name]) - 1]);
     }
 ?>
 
