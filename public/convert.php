@@ -12,6 +12,8 @@ const POSSIBLE_FORMATS = ['mp3', 'mp4'];
 if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 {
     $youtubelink = $_GET["youtubelink"];
+    $startAt = $_GET["startAt"] ?? null;
+    $endAt = $_GET["endAt"] ?? null;
     $format = $_GET['format'] ?? 'mp3';
 
     if(!in_array($format, POSSIBLE_FORMATS))
@@ -31,6 +33,26 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     $id = $matches[0];
 
     $exists = file_exists(Config::DOWNLOAD_FOLDER.$id.".".$format);
+
+    if (!empty($startAt) || !empty($endAt))
+    {
+        $query = parse_url($youtubelink, PHP_URL_QUERY);
+        parse_str($query, $params);
+
+        if (!empty($startAt))
+            $params['start'] = $startAt;
+
+        if (!empty($endAt))
+            $params['end'] = $endAt;
+
+        $youtubelink = strtok($youtubelink, '?') . '?' . http_build_query($params);
+
+        if ($exists)
+        {
+            unlink(Config::DOWNLOAD_FOLDER.$id.".".$format);
+            $exists = false;
+        }
+    }
 
     if(Config::DOWNLOAD_MAX_LENGTH > 0 || $exists)
     {
@@ -69,6 +91,11 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             ->noPlaylist()
             ->cookies(file_exists(Config::COOKIE_FILE) ? Config::COOKIE_FILE : null)
             ->url($youtubelink);
+
+        if (!empty($startAt) || !empty($endAt))
+            $options = $options->downloadSections('*from-url');
+        else
+            $options = $options->noContinue(true);
 
         if($format == 'mp3')
         {
