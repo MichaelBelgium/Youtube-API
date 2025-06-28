@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="youtubelink" class="form-control" id="link" required placeholder="youtube.com" />
+                                        <input type="text" name="youtubelink" class="form-control" id="link" onchange="fillStartEnd()" onkeyup="fillStartEnd()" required placeholder=" " />
                                         <label for="link">Youtube url</label>
                                     </div>
                                 </div>

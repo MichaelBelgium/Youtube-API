@@ -177,3 +177,36 @@ function handleInfoResponse(data, submitButton)
         tableCells[10].innerHTML = `<a target='_blank' href='${data.url}'>${data.url}</a>`;
     }
 }
+
+function fillStartEnd()
+{
+    const elLink = document.getElementById('link');
+    const elStart = document.getElementById('startAt');
+    const elEnd = document.getElementById('endAt');
+
+    const url = new URL(elLink.value);
+    const start = url.searchParams.get("start") || url.searchParams.get("t");
+    const end = url.searchParams.get("end");
+
+    if (start && start.length > 0)
+    {
+        elStart.value = start;
+        elStart.setAttribute('readonly', 'readonly');
+    }
+    else
+    {
+        elStart.value = '';
+        elStart.removeAttribute('readonly');
+    }
+
+    if (end && end.length > 0)
+    {
+        elEnd.value = end;
+        elEnd.setAttribute('readonly', 'readonly');
+    }
+    else
+    {
+        elEnd.value = '';
+        elEnd.removeAttribute('readonly');
+    }
+}
