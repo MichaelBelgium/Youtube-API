@@ -9,11 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const submitButton = frmConvert.querySelector("button[type=submit]");
         const link = document.getElementById('link').value;
         const format = document.getElementById('format').value;
+        const startAt = document.getElementById('startAt').value;
+        const endAt = document.getElementById('endAt').value;
 
         submitButton.classList.add("disabled");
         submitButton.innerHTML = "<i class=\"fas fa-spin fa-sync-alt\"></i> Converting...";
 
-        const endpoint = `${frmConvert.getAttribute("action")}?youtubelink=${link}&format=${format}`;
+        let endpoint = `${frmConvert.getAttribute("action")}?youtubelink=${link}&format=${format}`;
+
+        if (startAt.length > 0)
+            endpoint += `&startAt=${startAt}`;
+
+        if (endAt.length > 0)
+            endpoint += `&endAt=${endAt}`;
 
         fetch(endpoint)
             .then(response => response.json())

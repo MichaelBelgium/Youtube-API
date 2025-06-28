@@ -49,6 +49,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
         if ($exists)
         {
+            //todo this if can probably go when youtube-dl-php supports --force-overwrites options
             unlink(Config::DOWNLOAD_FOLDER.$id.".".$format);
             $exists = false;
         }
