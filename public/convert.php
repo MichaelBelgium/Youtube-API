@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require 'includes/env.php';
 
-use MichaelBelgium\YoutubeConverter\Config;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
@@ -30,9 +29,9 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
     $id = $matches[0];
 
-    $exists = file_exists(Config::DOWNLOAD_FOLDER.$id.".".$format);
+    $exists = file_exists(env('DOWNLOAD_FOLDER').$id.".".$format);
 
-    if(Config::DOWNLOAD_MAX_LENGTH > 0 || $exists)
+    if(env('DOWNLOAD_MAX_LENGTH', 0) > 0 || $exists)
     {
         try	{
             $dl = new YoutubeDl();
@@ -40,18 +39,18 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             $video = $dl->download(
                 Options::create()
                     ->noPlaylist()
-                    ->proxy(Config::PROXY)
+                    ->proxy(env('PROXY'))
                     ->skipDownload(true)
-                    ->downloadPath(Config::DOWNLOAD_FOLDER)
-                    ->cookies(file_exists(Config::COOKIE_FILE) ? Config::COOKIE_FILE : null)
+                    ->downloadPath(env('DOWNLOAD_FOLDER'))
+                    ->cookies(file_exists(env('COOKIE_FILE')) ? env('COOKIE_FILE') : null)
                     ->url($youtubelink)
             )->getVideos()[0];
 
             if ($video->getError() !== null)
                 throw new Exception($video->getError());
     
-            if($video->getDuration() > Config::DOWNLOAD_MAX_LENGTH && Config::DOWNLOAD_MAX_LENGTH > 0)
-                throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".Config::DOWNLOAD_MAX_LENGTH." seconds.");
+            if($video->getDuration() > env('DOWNLOAD_MAX_LENGTH', 0) && env('DOWNLOAD_MAX_LENGTH', 0) > 0)
+                throw new Exception("The duration of the video is {$video->getDuration()} seconds while max video length is ".env('DOWNLOAD_MAX_LENGTH')." seconds.");
         }
         catch (Exception $ex)
         {
@@ -64,10 +63,10 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     {
         $options = Options::create()
             ->output('%(id)s.%(ext)s')
-            ->downloadPath(Config::DOWNLOAD_FOLDER)
-            ->proxy(Config::PROXY)
+            ->downloadPath(env('DOWNLOAD_FOLDER'))
+            ->proxy(env('PROXY'))
             ->noPlaylist()
-            ->cookies(file_exists(Config::COOKIE_FILE) ? Config::COOKIE_FILE : null)
+            ->cookies(file_exists(env('COOKIE_FILE')) ? env('COOKIE_FILE') : null)
             ->url($youtubelink);
 
         if($format == 'mp3')
@@ -87,7 +86,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             ($dirname == '/' ? '' : $dirname) . "/";
 
         if($exists)
-            $file = $url.Config::DOWNLOAD_FOLDER.$video->getId().'.'.$format;
+            $file = $url.env('DOWNLOAD_FOLDER').$video->getId().'.'.$format;
         else
         {
             $dl = new YoutubeDl();
@@ -110,7 +109,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             "uploaded_at" => $video->getUploadDate()
         ));
 
-        if(Config::LOG)
+        if(env('ENABLE_LOG', false))
         {
             $now = new DateTime();
             $file = fopen('logs/'.$now->format('Ymd').'.log', 'a');
@@ -140,7 +139,7 @@ else if(isset($_GET["delete"]) && !empty($_GET["delete"]))
     $removedFiles = [];
 
     foreach($format as $f) {
-        $localFile = Config::DOWNLOAD_FOLDER.$id.".".$f;
+        $localFile = env('DOWNLOAD_FOLDER').$id.".".$f;
         if(file_exists($localFile)) {
             unlink($localFile);
             $removedFiles[] = $f;

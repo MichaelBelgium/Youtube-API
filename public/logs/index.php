@@ -1,7 +1,7 @@
 <?php
-    require_once __DIR__ . '/../../vendor/autoload.php';
+    require_once '../includes/env.php';
 
-    if (!\MichaelBelgium\YoutubeConverter\Config::LOG)
+    if (!env('ENABLE_LOG', false))
     {
         http_response_code(404);
         die('Logging is disabled. Please enable it in the config file to view this page.');
