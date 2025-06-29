@@ -1,22 +1,26 @@
 <?php
 
-use MichaelBelgium\YoutubeConverter\Config;
-
-require_once __DIR__ . '/../vendor/autoload.php';
+require 'includes/env.php';
 
 $result = array("error" => false, "message" => null, "results" => array());
 
 header("Content-Type: application/json");
 
+if (env('API_KEY') === null)
+{
+    http_response_code(400);
+    die(json_encode(['error' => true, 'message' => 'No API key set.']));
+}
+
 if (isset($_GET["q"]) && !empty($_GET["q"]))
 {
-    $max_results = Config::MAX_RESULTS;
+    $max_results = env('MAX_RESULTS', 10);
 
     if(isset($_GET["max_results"]) && !empty($_GET["max_results"]))
         $max_results = $_GET["max_results"];
 
     $client = new Google_Client();
-    $client->setDeveloperKey(Config::API_KEY);
+    $client->setDeveloperKey(env('API_KEY'));
 
     $youtube_service = new Google_Service_YouTube($client);
 

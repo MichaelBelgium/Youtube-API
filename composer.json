@@ -4,9 +4,10 @@
     "type": "project",
     "require": {
         "php": ">=8.2",
-        "norkunas/youtube-dl-php": "^2.0",
+        "ext-json": "*",
         "google/apiclient": "^2.0",
-        "ext-json": "*"
+        "norkunas/youtube-dl-php": "^2.0",
+        "vlucas/phpdotenv": "^5.6"
     },
     "license": "MIT",
     "authors": [
@@ -15,12 +16,10 @@
             "email": "michael@michaelbelgium.me"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "MichaelBelgium\\YoutubeConverter\\": "src/"
-        }
-    },
     "require-dev": {
         "phpstan/phpstan": "^2.0"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
