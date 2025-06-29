@@ -4,7 +4,7 @@
     if (!env('ENABLE_LOG', false))
     {
         http_response_code(404);
-        die('Logging is disabled. Please enable it in the config file to view this page.');
+        die('Logging is disabled.');
     }
 
     $files = glob(__DIR__ . '/*.log');

@@ -26,14 +26,15 @@ First we install the dependencies on the server, then website.
 
 ## Configuration
 
-Setting options are available in [`src/Config.php`](https://github.com/MichaelBelgium/Youtube-API/blob/master/src/Config.php)
+To configure everything, you need to create a copy of `.env.example` as `.env`. This file should contain your settings.
+For more information on the settings, check the comments in the `.env` or `.env.example` file.
 
 ## Documentation
 
 Check out the [wiki](https://github.com/MichaelBelgium/Youtube-API/wiki) for more docs.
 
 ## Docker
-You can deploy this API using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to the `.env` file.
+You can deploy this project using `docker-compose.yml` and the `Dockerfile` to build from. Please add your google API Key to the `.env` file.
 It will expose port 80 from the container, out to port 80 on the host. This can also be changed in `.env` under HOST_PORT. The docker image uses yt-dlp.
 
 ### How to run with docker-compose
@@ -50,5 +51,3 @@ docker-compose down
 docker-compose down -v
 ```
 
-### Changing API Key?
-If you are changing your API key, the change will not reflect until you have removed the attached docker volume and restarted the container. Another option is to enter the container and go to `src/Config.php` and manually change it, or mount the config in as a separate volume.

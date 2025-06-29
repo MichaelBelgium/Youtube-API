@@ -21,9 +21,4 @@ RUN /usr/local/bin/composer create-project michaelbelgium/youtube-to-mp3 . &&\
 # Ensure permissions won't be a problem
 RUN mkdir /var/www/.cache/ && chmod 777 /var/www/ -R
 
-# set new entrypoint and restore default command (apache). Entrypoint ensures
-# the API key is written to src/Config.php on start, if not already set.
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh
-ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

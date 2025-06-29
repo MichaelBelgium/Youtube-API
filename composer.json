@@ -16,11 +16,6 @@
             "email": "michael@michaelbelgium.me"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "MichaelBelgium\\YoutubeConverter\\": "src/"
-        }
-    },
     "require-dev": {
         "phpstan/phpstan": "^2.0"
     },
