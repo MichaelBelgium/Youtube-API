@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="youtubelink" class="form-control" id="link" required placeholder="youtube.com" />
+                                        <input type="text" name="youtubelink" class="form-control" id="link" onchange="fillStartEnd()" onkeyup="fillStartEnd()" required placeholder=" " />
                                         <label for="link">Youtube url</label>
                                     </div>
                                 </div>
@@ -39,7 +39,35 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i> Convert</button>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-forward-step"></i>
+                                        </span>
+
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control" min="0" name="startAt" id="startAt" placeholder=" " />
+                                            <label for="startAt">Start</label>
+                                        </div>
+
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control" min="0" name="endAt" id="endAt" placeholder=" " />
+                                            <label for="endAt">End</label>
+                                        </div>
+
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-backward-step"></i>
+                                        </span>
+                                    </div>
+                                    <div class="form-text">
+                                        Specify start and/or end times <b>(in seconds)</b> to trim the video. Leave both empty to download the complete video.<br/>
+                                        Start time only: downloads from that point to the end. End time only: downloads from the beginning to that point.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-primary mt-4"><i class="fas fa-sync-alt"></i> Convert</button>
                         </form>
                     </div>
                 </div>
