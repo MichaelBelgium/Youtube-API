@@ -35,6 +35,15 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
     if (!empty($startAt) || !empty($endAt))
     {
+        if (!empty($startAt) && !empty($endAt))
+        {
+            if ((int)$startAt >= (int)$endAt)
+            {
+                http_response_code(400);
+                die(json_encode(array("error" => true, "message" => "Invalid time range: startAt must be less than endAt")));
+            }
+        }
+
         $query = parse_url($youtubelink, PHP_URL_QUERY);
         parse_str($query, $params);
 
@@ -48,7 +57,7 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
         if ($exists)
         {
-            //todo this if can probably go when youtube-dl-php supports --force-overwrites options
+            //todo this can probably go when youtube-dl-php supports --force-overwrites options
             unlink(env('DOWNLOAD_FOLDER').$id.".".$format);
             $exists = false;
         }
