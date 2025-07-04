@@ -103,8 +103,6 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 
         if (!empty($startAt) || !empty($endAt))
             $options = $options->downloadSections('*from-url');
-        else
-            $options = $options->noContinue(true);
 
         if($format == 'mp3')
         {
