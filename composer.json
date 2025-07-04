@@ -20,6 +20,7 @@
         "phpstan/phpstan": "^2.0"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "process-timeout": 600
     }
 }
