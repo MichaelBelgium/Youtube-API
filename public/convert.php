@@ -11,6 +11,8 @@ const POSSIBLE_FORMATS = ['mp3', 'mp4'];
 if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
 {
     $youtubelink = $_GET["youtubelink"];
+    $startAt = $_GET["startAt"] ?? null;
+    $endAt = $_GET["endAt"] ?? null;
     $format = $_GET['format'] ?? 'mp3';
 
     if(!in_array($format, POSSIBLE_FORMATS))
@@ -30,6 +32,36 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
     $id = $matches[0];
 
     $exists = file_exists(env('DOWNLOAD_FOLDER').$id.".".$format);
+
+    if (!empty($startAt) || !empty($endAt))
+    {
+        if (!empty($startAt) && !empty($endAt))
+        {
+            if ((int)$startAt >= (int)$endAt)
+            {
+                http_response_code(400);
+                die(json_encode(array("error" => true, "message" => "Invalid time range: startAt must be less than endAt")));
+            }
+        }
+
+        $query = parse_url($youtubelink, PHP_URL_QUERY);
+        parse_str($query, $params);
+
+        if (!empty($startAt))
+            $params['start'] = $startAt;
+
+        if (!empty($endAt))
+            $params['end'] = $endAt;
+
+        $youtubelink = strtok($youtubelink, '?') . '?' . http_build_query($params);
+
+        if ($exists)
+        {
+            //todo this can probably go when youtube-dl-php supports --force-overwrites options
+            unlink(env('DOWNLOAD_FOLDER').$id.".".$format);
+            $exists = false;
+        }
+    }
 
     if(env('DOWNLOAD_MAX_LENGTH', 0) > 0 || $exists)
     {
@@ -68,6 +100,9 @@ if(isset($_GET["youtubelink"]) && !empty($_GET["youtubelink"]))
             ->noPlaylist()
             ->cookies(file_exists(env('COOKIE_FILE')) ? env('COOKIE_FILE') : null)
             ->url($youtubelink);
+
+        if (!empty($startAt) || !empty($endAt))
+            $options = $options->downloadSections('*from-url');
 
         if($format == 'mp3')
         {

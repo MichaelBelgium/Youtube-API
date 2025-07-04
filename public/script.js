@@ -9,11 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const submitButton = frmConvert.querySelector("button[type=submit]");
         const link = document.getElementById('link').value;
         const format = document.getElementById('format').value;
+        const startAt = document.getElementById('startAt').value;
+        const endAt = document.getElementById('endAt').value;
 
         submitButton.classList.add("disabled");
         submitButton.innerHTML = "<i class=\"fas fa-spin fa-sync-alt\"></i> Converting...";
 
-        const endpoint = `${frmConvert.getAttribute("action")}?youtubelink=${link}&format=${format}`;
+        let endpoint = `${frmConvert.getAttribute("action")}?youtubelink=${link}&format=${format}`;
+
+        if (startAt.length > 0)
+            endpoint += `&startAt=${startAt}`;
+
+        if (endAt.length > 0)
+            endpoint += `&endAt=${endAt}`;
 
         fetch(endpoint)
             .then(response => response.json())
@@ -167,5 +175,38 @@ function handleInfoResponse(data, submitButton)
         tableCells[8].innerText = data.published_at;
         tableCells[9].innerText = data.title;
         tableCells[10].innerHTML = `<a target='_blank' href='${data.url}'>${data.url}</a>`;
+    }
+}
+
+function fillStartEnd()
+{
+    const elLink = document.getElementById('link');
+    const elStart = document.getElementById('startAt');
+    const elEnd = document.getElementById('endAt');
+
+    const url = new URL(elLink.value);
+    const start = url.searchParams.get("start") || url.searchParams.get("t");
+    const end = url.searchParams.get("end");
+
+    if (start && start.length > 0)
+    {
+        elStart.value = start;
+        elStart.setAttribute('readonly', 'readonly');
+    }
+    else
+    {
+        elStart.value = '';
+        elStart.removeAttribute('readonly');
+    }
+
+    if (end && end.length > 0)
+    {
+        elEnd.value = end;
+        elEnd.setAttribute('readonly', 'readonly');
+    }
+    else
+    {
+        elEnd.value = '';
+        elEnd.removeAttribute('readonly');
     }
 }
