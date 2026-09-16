@@ -50,4 +50,7 @@ docker-compose down
 # Or use this to remove the attached volume, to clear up space-
 docker-compose down -v
 ```
+## Hosted option
+
+If you don’t want to self-host, [Vid Kraken](https://vidkraken.com) is a managed YouTube download API (info / mp3 / mp4 endpoints).
 
